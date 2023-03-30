@@ -1,0 +1,46 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Weapons",
+            "id": "56f756ef-fb0e-4378-8a96-0c79d789b14e",
+            "actions": [
+                {
+                    "name": "Recenter",
+                    "type": "Button",
+                    "id": "99bf4b2a-bcef-4e78-92af-e08dddd340dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "22e25e80-726b-4383-a938-86ece47b9ec6",
+                    "path": "<DualShockGamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS4",
+                    "action": "Recenter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PS4",
+            "bindingGroup": "PS4",
+            "devices": [
+                {
+                    "devicePath": "<DualShockGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
