@@ -120,9 +120,9 @@ sealed class WeaponController : MonoBehaviour
         Vector3 gunParentTransformnz = (new Vector3(GunParent.transform.forward.x, 0, GunParent.transform.forward.z)).normalized;
         Vector3 thisTransformnz = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
         //Debug.LogError(Vector3.Angle(gunParentTransformnz, thisTransformnz));
-        if (Vector3.Angle(gunParentTransformnz, thisTransformnz) > 25)
+        if (Vector3.Angle(gunParentTransformnz, thisTransformnz) > 24)
         {
-            GunParent.transform.forward = Vector3.RotateTowards(gunParentTransformnz, thisTransformnz, Mathf.PI *Time.deltaTime / 6, 0);
+            GunParent.transform.forward = Vector3.RotateTowards(gunParentTransformnz, thisTransformnz, Mathf.PI *Time.deltaTime * Mathf.Clamp(Vector3.Angle(gunParentTransformnz, thisTransformnz) / 50,1.3f, 3.5f)/ 6, 0);
         }
         Vector3 aimingTransform = this.transform.position + this.transform.forward * 20;
         Vector3 newModelForward = (aimingTransform - GunModel.transform.position).normalized;
