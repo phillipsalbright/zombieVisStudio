@@ -48,9 +48,14 @@ sealed class WeaponController : MonoBehaviour
 
     #region Private members
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private GameObject GunModel;
+   // [SerializeField] private GameObject GunModel;
     [SerializeField] private GameObject GunParent;
+    [SerializeField] private float maxAngle = 334;
+    [SerializeField] private float minAngle = 4;
     private int playerNum;
+    private Quaternion controllerRotation;
+    [SerializeField] private Weapon[] weapons;
+    private Weapon currentWeapon;
 
     // Accumulation of gyro input
     Quaternion _accGyro = Quaternion.identity;
@@ -76,6 +81,8 @@ sealed class WeaponController : MonoBehaviour
         playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
         playerInput.currentActionMap.FindAction("gyro" + playerNum).performed += ctx => _accGyro *= this.GyroInputToRotation(ctx);
         playerInput.currentActionMap.Enable();
+        controllerRotation = transform.localRotation;
+        currentWeapon = weapons[0];
 
     }
 
@@ -84,7 +91,7 @@ sealed class WeaponController : MonoBehaviour
         Vector3 rotate = _accGyro.eulerAngles;
         //Debug.LogError(_accGyro);
         // Current status
-        var rot = transform.localRotation;
+        var rot = controllerRotation; // use transform.localRotation to not preserve controller rotation past bounds
 
         // Rotation from gyroscope
         _accGyro.x = _accGyro.y; // this is good
@@ -106,27 +113,28 @@ sealed class WeaponController : MonoBehaviour
 
         // Update
 
+        controllerRotation = rot;
         transform.localRotation = rot;
-        if (transform.localEulerAngles.x < 334 && transform.localEulerAngles.x > 4)
+        if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
-            if (Mathf.Abs(transform.localEulerAngles.x - 334) < Mathf.Abs(transform.localEulerAngles.x - 4)) 
+            if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 
             {
-                transform.localRotation = Quaternion.Euler(334, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+                transform.localRotation = Quaternion.Euler(maxAngle, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
             } else
             {
-                transform.localRotation = Quaternion.Euler(4, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+                transform.localRotation = Quaternion.Euler(minAngle, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
             }
         }
         Vector3 gunParentTransformnz = (new Vector3(GunParent.transform.forward.x, 0, GunParent.transform.forward.z)).normalized;
         Vector3 thisTransformnz = (new Vector3(transform.forward.x, 0, transform.forward.z)).normalized;
         //Debug.LogError(Vector3.Angle(gunParentTransformnz, thisTransformnz));
-        if (Vector3.Angle(gunParentTransformnz, thisTransformnz) > 24)
+        if (Vector3.Angle(gunParentTransformnz, thisTransformnz) > 30)
         {
             GunParent.transform.forward = Vector3.RotateTowards(gunParentTransformnz, thisTransformnz, Mathf.PI *Time.deltaTime * Mathf.Clamp(Vector3.Angle(gunParentTransformnz, thisTransformnz) / 50,1.3f, 3.5f)/ 6, 0);
         }
         Vector3 aimingTransform = this.transform.position + this.transform.forward * 20;
-        Vector3 newModelForward = (aimingTransform - GunModel.transform.position).normalized;
-        GunModel.transform.forward = newModelForward;
+        Vector3 newModelForward = (aimingTransform - currentWeapon.GetModelTransform().position).normalized;
+        currentWeapon.GetModelTransform().forward = newModelForward;
         
     }
 
@@ -137,8 +145,26 @@ sealed class WeaponController : MonoBehaviour
         if (ctx.performed)
         {
             Debug.Log("Center Pressed");
-            transform.localRotation = Quaternion.identity;
+            //transform.localRotation = Quaternion.identity; use this to not preserve controller rotation past boundaries
+            controllerRotation = Quaternion.identity;
+            
+        }
+    }
 
+    public void SwapWeapon(InputAction.CallbackContext ctx)
+    {
+
+    }
+
+    public void FireWeapon(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            currentWeapon.AttackDown();
+        }
+        else
+        {
+            currentWeapon.AttackRelease();
         }
     }
 }
