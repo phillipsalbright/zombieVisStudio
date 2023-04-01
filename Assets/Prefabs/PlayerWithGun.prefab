@@ -163,6 +163,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerWithGun
       objectReference: {fileID: 0}
+    - target: {fileID: 8393402215825105212, guid: 62be31c883dd9b245b6fa7ca7107b800,
+        type: 3}
+      propertyPath: lookSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393402215825105212, guid: 62be31c883dd9b245b6fa7ca7107b800,
+        type: 3}
+      propertyPath: walkingSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393402215825105212, guid: 62be31c883dd9b245b6fa7ca7107b800,
+        type: 3}
+      propertyPath: verticalSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8393402215825105213, guid: 62be31c883dd9b245b6fa7ca7107b800,
         type: 3}
       propertyPath: m_RootOrder
@@ -176,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 8393402215825105213, guid: 62be31c883dd9b245b6fa7ca7107b800,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.67
       objectReference: {fileID: 0}
     - target: {fileID: 8393402215825105213, guid: 62be31c883dd9b245b6fa7ca7107b800,
         type: 3}
