@@ -91,7 +91,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -416,6 +416,14 @@ PrefabInstance:
     - target: {fileID: 400006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19900000, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
       propertyPath: m_Materials.Array.size

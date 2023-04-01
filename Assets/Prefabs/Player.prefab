@@ -242,6 +242,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 19907078-1ba4-4169-9490-a7a0b7ffe44a
     m_ActionName: Weapons/Fire[/DualShock4GamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8242777605062921624}
+        m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
+        m_MethodName: MoveStick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 59730729-b097-4234-b676-f6e98c5e8b38
+    m_ActionName: Weapons/RightStick[/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8242777605062921624}
+        m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
+        m_MethodName: ChangeScheme
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a13b9dd8-ba40-4177-8743-c5a421af2545
+    m_ActionName: Weapons/ChangeScheme[/DualShock4GamepadHID/select,/DualShock4GamepadHID1/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PS4
   m_DefaultActionMap: Weapons

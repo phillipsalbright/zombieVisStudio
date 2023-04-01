@@ -56,6 +56,9 @@ sealed class WeaponController : MonoBehaviour
     private Quaternion controllerRotation;
     [SerializeField] private Weapon[] weapons;
     private Weapon currentWeapon;
+    private Vector2 stickMovement = Vector2.zero;
+    private int schemenum = 0;
+    private Quaternion totalControllerRotation = Quaternion.identity;
 
     // Accumulation of gyro input
     Quaternion _accGyro = Quaternion.identity;
@@ -66,21 +69,26 @@ sealed class WeaponController : MonoBehaviour
 
     void Start()
     {
-        // DS4 input layout extension
-        InputSystem.RegisterLayoutOverride(LayoutJson);
         playerNum = playerInput.playerIndex;
+        if (playerInput.currentControlScheme == "PS4")
+        { 
+            // DS4 input layout extension
+            InputSystem.RegisterLayoutOverride(LayoutJson);
 
-        // Gyroscope input callback
-        /**
-        var action = new InputAction(binding: "<Gamepad>/gyro");
-        action.performed += ctx => _accGyro *= this.GyroInputToRotation(ctx, this.playerNum);
-        action.Enable();
-        */
-        //var action = new InputAction(binding: "<Gamepad>/gyro");
-        playerInput.currentActionMap.Disable();
-        playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
-        playerInput.currentActionMap.FindAction("gyro" + playerNum).performed += ctx => _accGyro *= this.GyroInputToRotation(ctx);
-        playerInput.currentActionMap.Enable();
+            // Gyroscope input callback
+            /**
+            var action = new InputAction(binding: "<Gamepad>/gyro");
+            action.performed += ctx => _accGyro *= this.GyroInputToRotation(ctx, this.playerNum);
+            action.Enable();
+            */
+            //var action = new InputAction(binding: "<Gamepad>/gyro");
+            playerInput.currentActionMap.Disable();
+            playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
+            playerInput.currentActionMap.FindAction("gyro" + playerNum).performed += ctx => _accGyro *= this.GyroInputToRotation(ctx);
+            playerInput.currentActionMap.Enable();
+
+        }
+       
         controllerRotation = transform.localRotation;
         currentWeapon = weapons[0];
 
@@ -94,13 +102,21 @@ sealed class WeaponController : MonoBehaviour
         var rot = controllerRotation; // use transform.localRotation to not preserve controller rotation past bounds
 
         // Rotation from gyroscope
-        _accGyro.x = _accGyro.y; // this is good
-        _accGyro.y = -_accGyro.z; //This is good
-        _accGyro.z = 0; // 
+        if (schemenum == 0) //ps4 with bluetooth
+        {
+            _accGyro.x = _accGyro.y; // this is good
+            _accGyro.y = -_accGyro.z; //This is good
+            _accGyro.z = 0; // 
+        } else if (schemenum == 1)
+        {
+
+        }
+       
         rot *= _accGyro;
         _accGyro = Quaternion.identity;
 
         // Accelerometer input
+        /** not using this
         var accel = playerInput.devices[0]?.GetChildControl<Vector3Control>("accel");
         var gravity = accel?.ReadValue() ?? -Vector3.up;
 
@@ -110,19 +126,23 @@ sealed class WeaponController : MonoBehaviour
         // Compensation reduction
         comp.w *= 0.1f / Time.deltaTime;
         comp = comp.normalized;
-
+        */
         // Update
-
+        Quaternion controllerQuat = new Quaternion(stickMovement.y / -110, stickMovement.x / 160, 0, 1);
+        totalControllerRotation *= controllerQuat;
         controllerRotation = rot;
-        transform.localRotation = rot;
+        transform.localRotation = rot * totalControllerRotation;
         if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
             if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 
             {
                 transform.localRotation = Quaternion.Euler(maxAngle, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
-            } else
+               // totalControllerRotation.x = 0;
+            }
+            else
             {
                 transform.localRotation = Quaternion.Euler(minAngle, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+                //  totalControllerRotation.x = 0;
             }
         }
         Vector3 gunParentTransformnz = (new Vector3(GunParent.transform.forward.x, 0, GunParent.transform.forward.z)).normalized;
@@ -147,7 +167,7 @@ sealed class WeaponController : MonoBehaviour
             Debug.Log("Center Pressed");
             //transform.localRotation = Quaternion.identity; use this to not preserve controller rotation past boundaries
             controllerRotation = Quaternion.identity;
-            
+            totalControllerRotation = Quaternion.identity;
         }
     }
 
@@ -166,5 +186,15 @@ sealed class WeaponController : MonoBehaviour
         {
             currentWeapon.AttackRelease();
         }
+    }
+
+    public void MoveStick(InputAction.CallbackContext ctx)
+    {
+        stickMovement = ctx.ReadValue<Vector2>();
+    }
+
+    public void ChangeScheme(InputAction.CallbackContext ctx)
+    {
+        schemenum = (schemenum + 1) % 2;
     }
 }
