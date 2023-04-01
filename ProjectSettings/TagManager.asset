@@ -3,15 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Camera 7
+  - Camera 6
+  - Camera 4
+  - Camera 5
+  - Camera 1
+  - Camera 3
+  - Camera 2
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Zombie
   - 
   - 
   - 
