@@ -66,6 +66,11 @@ sealed class WeaponController : MonoBehaviour
     #endregion
 
     #region MonoBehaviour implementation
+    private void Awake()
+    {
+
+        currentWeapon = weapons[0];
+    }
 
     void Start()
     {
@@ -90,7 +95,6 @@ sealed class WeaponController : MonoBehaviour
         }
        
         controllerRotation = transform.localRotation;
-        currentWeapon = weapons[0];
 
     }
 
@@ -195,6 +199,19 @@ sealed class WeaponController : MonoBehaviour
 
     public void ChangeScheme(InputAction.CallbackContext ctx)
     {
-        schemenum = (schemenum + 1) % 2;
+        if (ctx.performed)
+        {
+            schemenum = (schemenum + 1) % 2;
+
+        }
+    }
+
+    public void Reload(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            currentWeapon.Reload();
+
+        }
     }
 }

@@ -8,21 +8,34 @@ using UnityEngine.InputSystem.DualShock;
 public class AssaultRifle : Weapon
 {
     [SerializeField] private Transform modelTransform;
-    [SerializeField] private Transform gunTransform;
+    [SerializeField] private Transform recoilTransform;
     [SerializeField] private AudioSource firingSound;
+    [SerializeField] private AudioSource emptySound;
+    [SerializeField] private AudioSource reloadSound;
     [SerializeField] private GameObject muzzleFlash;
     [SerializeField] private Transform barrelForward;
     [SerializeField] private LayerMask validLayers;
     [SerializeField] private PlayerInput pm;
+    private int magazineSize = 36;
+    private int startingReserve = 72;
+    private int reserveAmmo;
+    private int ammoInWeapon;
+
     private bool triggerPulled = false;
     private float timeBetweenShots = .4f;
     private float timeSinceLastShot = 0;
     private Quaternion rotationforce = Quaternion.identity;
     private Gamepad pad;
+    private Animator anim;
+    private bool firing = false;
+    private bool reloading = false;
 
     private void Start()
     {
-        pad = (Gamepad)GetComponent<PlayerInput>().devices[0];
+        ammoInWeapon = magazineSize;
+        reserveAmmo = startingReserve;
+        pad = (Gamepad)pm.devices[0];
+        anim = GetComponent<Animator>();
     }
 
     public override void AttackDown()
@@ -37,7 +50,31 @@ public class AssaultRifle : Weapon
 
     public override void Reload()
     {
+        if (!firing && reserveAmmo > 0 && ammoInWeapon < magazineSize)
+        {
+            StartCoroutine(ReloadEnumator());
 
+        }
+    }
+
+    private IEnumerator ReloadEnumator()
+    {
+        anim.SetTrigger("Reload");
+        reloading = true;
+        yield return new WaitForSeconds(1f);
+        reloadSound.Play();
+        yield return new WaitForSeconds(1f);
+        reserveAmmo += ammoInWeapon;
+        if (reserveAmmo / magazineSize > 0)
+        {
+            ammoInWeapon = magazineSize;
+            reserveAmmo -= magazineSize;
+        } else
+        {
+            ammoInWeapon = reserveAmmo;
+            reserveAmmo = 0;
+        }
+        reloading = false;
     }
 
     public override void PutAway()
@@ -58,21 +95,30 @@ public class AssaultRifle : Weapon
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (triggerPulled && timeSinceLastShot > timeBetweenShots)
+        if (triggerPulled && timeSinceLastShot > timeBetweenShots && !reloading)
         {
-            StartCoroutine(Fire());
-            timeSinceLastShot = 0;
-            muzzleFlash.SetActive(true);
+            if (ammoInWeapon >= 3)
+            {
+                StartCoroutine(Fire());
+                timeSinceLastShot = 0;
+                muzzleFlash.SetActive(true);
+
+            } else
+            {
+                timeSinceLastShot = 0;
+                emptySound.Play();
+            }
         } else if (timeSinceLastShot > timeBetweenShots)
         {
             muzzleFlash.SetActive(false);
         }
-        gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, rotationforce, Time.deltaTime * 2);
+        recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
         rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1);
     }
 
     private IEnumerator Fire()
     {
+        firing = true;
         firingSound.Play();
         if (pad != null)
         {
@@ -89,10 +135,16 @@ public class AssaultRifle : Weapon
                     objecthit.collider.gameObject.GetComponent<ZombieHealth>().TakeDamage(5);
                 }
             }
-            rotationforce *= new Quaternion(-.1f, 0, 0, 1);
+            rotationforce *= new Quaternion(-.12f, 0, 0, 1);
+            ammoInWeapon--;
             yield return new WaitForSeconds(.05f);
         }
-        pad.SetMotorSpeeds(0, 0);
+        if (pad != null)
+        {
+            pad.SetMotorSpeeds(0, 0);
+
+        }
+        firing = false;
 
     }
 }
