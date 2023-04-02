@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
+using TMPro;
+using UnityEngine.UI;
 
 public class AssaultRifle : Weapon
 {
@@ -108,6 +110,15 @@ public class AssaultRifle : Weapon
                 timeSinceLastShot = 0;
                 emptySound.Play();
             }
+            // For UI
+            Ray ray = new Ray(barrelForward.position, barrelForward.forward);
+            LayerMask l = LayerMask.GetMask("UI");
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, Mathf.Infinity, l);
+            if (hit.collider != null)
+            {
+                hit.collider.gameObject.GetComponent<Button>().onClick.Invoke();
+            }
         } else if (timeSinceLastShot > timeBetweenShots)
         {
             muzzleFlash.SetActive(false);
@@ -132,8 +143,9 @@ public class AssaultRifle : Weapon
             {
                 if (objecthit.collider.gameObject.layer == 6)
                 {
-                    objecthit.collider.gameObject.GetComponent<ZombieHealth>().TakeDamage(5);
+                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
                 }
+
             }
             rotationforce *= new Quaternion(-.12f, 0, 0, 1);
             ammoInWeapon--;
