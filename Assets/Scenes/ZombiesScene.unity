@@ -20200,7 +20200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e6a3a8bc6d7134cbbda821b227aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelay: 5
+  spawnDelay: 10
   spawnTimer: 0
   spawnPoints: []
   pathStructure: {fileID: 1347638806}

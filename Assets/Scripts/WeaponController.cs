@@ -88,7 +88,12 @@ sealed class WeaponController : MonoBehaviour
             */
             //var action = new InputAction(binding: "<Gamepad>/gyro");
             playerInput.currentActionMap.Disable();
-            playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
+            if (playerInput.currentActionMap.FindAction("gyro" + playerNum) == null)
+            {
+                playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
+
+
+            }
             playerInput.currentActionMap.FindAction("gyro" + playerNum).performed += ctx => _accGyro *= this.GyroInputToRotation(ctx);
             playerInput.currentActionMap.Enable();
 
@@ -168,7 +173,6 @@ sealed class WeaponController : MonoBehaviour
     {
         if (ctx.performed)
         {
-            Debug.Log("Center Pressed");
             //transform.localRotation = Quaternion.identity; use this to not preserve controller rotation past boundaries
             controllerRotation = Quaternion.identity;
             totalControllerRotation = Quaternion.identity;
