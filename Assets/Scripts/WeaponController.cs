@@ -66,6 +66,11 @@ sealed class WeaponController : MonoBehaviour
     #endregion
 
     #region MonoBehaviour implementation
+    private void Awake()
+    {
+
+        currentWeapon = weapons[0];
+    }
 
     void Start()
     {
@@ -83,14 +88,18 @@ sealed class WeaponController : MonoBehaviour
             */
             //var action = new InputAction(binding: "<Gamepad>/gyro");
             playerInput.currentActionMap.Disable();
-            playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
+            if (playerInput.currentActionMap.FindAction("gyro" + playerNum) == null)
+            {
+                playerInput.currentActionMap.AddAction("gyro" + playerNum, InputActionType.Value, "<Gamepad>/gyro");
+
+
+            }
             playerInput.currentActionMap.FindAction("gyro" + playerNum).performed += ctx => _accGyro *= this.GyroInputToRotation(ctx);
             playerInput.currentActionMap.Enable();
 
         }
        
         controllerRotation = transform.localRotation;
-        currentWeapon = weapons[0];
 
     }
 
@@ -164,7 +173,6 @@ sealed class WeaponController : MonoBehaviour
     {
         if (ctx.performed)
         {
-            Debug.Log("Center Pressed");
             //transform.localRotation = Quaternion.identity; use this to not preserve controller rotation past boundaries
             controllerRotation = Quaternion.identity;
             totalControllerRotation = Quaternion.identity;
@@ -195,6 +203,19 @@ sealed class WeaponController : MonoBehaviour
 
     public void ChangeScheme(InputAction.CallbackContext ctx)
     {
-        schemenum = (schemenum + 1) % 2;
+        if (ctx.performed)
+        {
+            schemenum = (schemenum + 1) % 2;
+
+        }
+    }
+
+    public void Reload(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            currentWeapon.Reload();
+
+        }
     }
 }
