@@ -144,6 +144,7 @@ public class Zombie : MonoBehaviour
         dead = true;
         StopMoving();
         this.enabled = false;
+        this.GetComponent<Collider>().enabled = false;
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }
