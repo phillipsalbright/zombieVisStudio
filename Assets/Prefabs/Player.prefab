@@ -274,6 +274,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a13b9dd8-ba40-4177-8743-c5a421af2545
     m_ActionName: Weapons/ChangeScheme[/DualShock4GamepadHID/select,/DualShock4GamepadHID1/select]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8242777605062921624}
+        m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: de1383a4-c6dd-4918-be23-6893a2035efd
+    m_ActionName: Weapons/Reload[/DualShock4GamepadHID/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PS4
   m_DefaultActionMap: Weapons
@@ -318,6 +334,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7254670891220235236}
     m_Modifications:
+    - target: {fileID: 1520061000102062647, guid: 2e49a13a2574d3b49bdacfd245aa8b54,
+        type: 3}
+      propertyPath: pm
+      value: 
+      objectReference: {fileID: 7327684504031136789}
     - target: {fileID: 3730790226324648244, guid: 2e49a13a2574d3b49bdacfd245aa8b54,
         type: 3}
       propertyPath: m_RootOrder
