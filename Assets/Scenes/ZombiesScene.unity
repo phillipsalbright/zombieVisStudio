@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6754,11 +6754,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 832783289863907637, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1092685214399421547, guid: 1d211cc5cf03cde42a054db97a2932bc,
         type: 3}
       propertyPath: m_Name
@@ -6818,36 +6813,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092685214399421557, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: lookSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092685214399421557, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: walkingSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3013528247790414745, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4463071451144917470, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5532093211262063596, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8442643190755160676, guid: 1d211cc5cf03cde42a054db97a2932bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d211cc5cf03cde42a054db97a2932bc, type: 3}
@@ -20235,7 +20200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e6a3a8bc6d7134cbbda821b227aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelay: 5
+  spawnDelay: 10
   spawnTimer: 0
   spawnPoints: []
   pathStructure: {fileID: 1347638806}

@@ -43,6 +43,6 @@ public class ZombieManager : MonoBehaviour
         GameObject spawnObject = spawnPoints[Random.Range(0,spawnPoints.Count)];
 
         GameObject newZombie = Instantiate(zombie, spawnObject.transform.position, Quaternion.identity);
-        newZombie.GetComponent<ZombieMovement>().SetDestination(spawnObject);
+        newZombie.GetComponent<Zombie>().SetDestination(spawnObject);
     }
 }
