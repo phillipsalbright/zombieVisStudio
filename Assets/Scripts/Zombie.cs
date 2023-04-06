@@ -146,6 +146,7 @@ public class Zombie : MonoBehaviour
         this.enabled = false;
         this.GetComponent<Collider>().enabled = false;
         yield return new WaitForSeconds(10f);
+        PowerUpManager.Instance.OnDeathPowerUpSpawn(transform.position);
         Destroy(this.gameObject);
     }
 }
