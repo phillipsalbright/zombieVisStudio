@@ -3,7 +3,22 @@ guid: efbf575a62beba44485730b0d9644ee8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LAM_LAM_SOCOMMat
+    second: {fileID: 2100000, guid: 61e20f234cd6fd949855c624d13eca5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: g_Mag_Extended_LP.001_Mag_Extended_LP.001_Mag_Ext_Mag_Extended__g_Mag_Extended_LP.001_Mag_Extended_LP.001_Mag_Ext_Mag_Extended__Mag_ExtMat
+    second: {fileID: 2100000, guid: bb48ae53029f8d9488efd1346180b7f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: polySurface24_polySurface24_SOCOMMat
+    second: {fileID: 2100000, guid: 61e20f234cd6fd949855c624d13eca5d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
