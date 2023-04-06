@@ -31,6 +31,9 @@ public class AssaultRifle : Weapon
     private Animator anim;
     private bool firing = false;
     private bool reloading = false;
+    [SerializeField] private TMP_Text ammoText;
+    [SerializeField] private TMP_Text healthText;
+    private PlayerHealthManager phm;
 
     private void Start()
     {
@@ -38,6 +41,8 @@ public class AssaultRifle : Weapon
         reserveAmmo = startingReserve;
         pad = (Gamepad)pm.devices[0];
         anim = GetComponent<Animator>();
+        phm = FindObjectOfType<PlayerHealthManager>();
+        UpdateAmmoDisplay();
     }
 
     public override void AttackDown()
@@ -77,6 +82,7 @@ public class AssaultRifle : Weapon
             reserveAmmo = 0;
         }
         reloading = false;
+        UpdateAmmoDisplay();
     }
 
     public override void PutAway()
@@ -125,6 +131,7 @@ public class AssaultRifle : Weapon
         }
         recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
         rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1);
+        healthText.text = "Health: " + phm.GetHealth();
     }
 
     private IEnumerator Fire()
@@ -149,6 +156,7 @@ public class AssaultRifle : Weapon
             }
             rotationforce *= new Quaternion(-.12f, 0, 0, 1);
             ammoInWeapon--;
+            UpdateAmmoDisplay();
             yield return new WaitForSeconds(.05f);
         }
         if (pad != null)
@@ -158,5 +166,10 @@ public class AssaultRifle : Weapon
         }
         firing = false;
 
+    }
+
+    private void UpdateAmmoDisplay()
+    {
+        ammoText.text = "Bullets: " + ammoInWeapon + "/" + reserveAmmo;
     }
 }
