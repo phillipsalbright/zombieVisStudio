@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerHealthManager : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     [SerializeField] private GameObject[] redScreens;
     private float health;
+    private Animator anim;
+    private bool dead = false;
 
     // Start is called before the first frame update
     void Start()
     {
         health = startingHealth;
+        anim = GetComponentInParent<Animator>();
     }
 
     private void Update()
@@ -22,10 +26,14 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void DamagePlayer(float damage, Vector3 position)
     {
+        if (dead)
+        {
+            return;
+        }
         health -= damage;
         if (health <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
         Vector3 directionOfDamage = position - this.transform.position;
         directionOfDamage.y = 0;
@@ -39,8 +47,16 @@ public class PlayerHealthManager : MonoBehaviour
         StartCoroutine(flashScreen(index));
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        anim.SetTrigger("Death");
+        PlayerInput[] players = FindObjectsOfType<PlayerInput>();
+        dead = true;
+        for (int i = 0; i < players.Length; i++) {
+            Destroy(players[i].gameObject);
+        }
+        yield return new WaitForSeconds(5f);
+
         SceneManager.LoadScene(0);
     }
 
@@ -49,5 +65,10 @@ public class PlayerHealthManager : MonoBehaviour
         redScreens[index].SetActive(true);
         yield return new WaitForSeconds(.5f);
         redScreens[index].SetActive(false);
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }
