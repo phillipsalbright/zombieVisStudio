@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon",
+                    "type": "Value",
+                    "id": "f3c459fa-d37d-4468-ace9-157547cd0699",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -238,6 +247,39 @@
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "bd0748ed-ca31-4a39-a473-72ec7f9caa13",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "0cacc94b-ff95-473b-9b17-9c76eb59fc34",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS4",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "847ecc7d-39c7-4aa8-b633-9461d90c6c20",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS4",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

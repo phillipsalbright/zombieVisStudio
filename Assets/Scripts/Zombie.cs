@@ -105,7 +105,7 @@ public class Zombie : MonoBehaviour
         dest = destination;
         navAgent.SetDestination(dest.transform.position);
         animator.SetBool("Walking", true);
-        Debug.LogWarning("new destination acquired");
+       // Debug.LogWarning("new destination acquired");
     }
 
     public void GetNextDest(){

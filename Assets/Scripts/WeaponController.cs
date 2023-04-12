@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -56,6 +57,7 @@ sealed class WeaponController : MonoBehaviour
     private Quaternion controllerRotation;
     [SerializeField] private Weapon[] weapons;
     private Weapon currentWeapon;
+    private int currentWeaponIndex;
     private Vector2 stickMovement = Vector2.zero;
     private int schemenum = 0;
     private Quaternion totalControllerRotation = Quaternion.identity;
@@ -69,7 +71,19 @@ sealed class WeaponController : MonoBehaviour
     private void Awake()
     {
 
-        currentWeapon = weapons[0];
+        currentWeaponIndex = 0;
+        currentWeapon = weapons[currentWeaponIndex];
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (i == currentWeaponIndex)
+            {
+                weapons[i].MakeActive();
+            }
+            else
+            {
+                weapons[i].PutAway();
+            }
+        }
     }
 
     void Start()
@@ -181,7 +195,36 @@ sealed class WeaponController : MonoBehaviour
 
     public void SwapWeapon(InputAction.CallbackContext ctx)
     {
+        if (ctx.performed)
+        {
+            Debug.Log(ctx.ReadValue<float>());
+            if (ctx.ReadValue<float>() < 0)
+            {
+                currentWeaponIndex = math.abs((currentWeaponIndex - 1) % 2);
+            }
+            else if (ctx.ReadValue<float>() > 0)
+            {
+                currentWeaponIndex = (currentWeaponIndex + 1) % 2;
+            }
 
+            if (ctx.ReadValue<float>() != 0)
+            {
+                for (int i = 0; i < weapons.Length; i++)
+                {
+                    if (i == currentWeaponIndex)
+                    {
+                        weapons[i].MakeActive();
+                        currentWeapon = weapons[i];
+                    }
+                    else
+                    {
+                        weapons[i].PutAway();
+                    }
+                }
+            }
+
+        }
+ 
     }
 
     public void FireWeapon(InputAction.CallbackContext ctx)
