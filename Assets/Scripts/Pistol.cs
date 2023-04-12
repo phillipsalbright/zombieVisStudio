@@ -18,9 +18,7 @@ public class Pistol : Weapon
     [SerializeField] private Transform barrelForward;
     [SerializeField] private LayerMask validLayers;
     [SerializeField] private PlayerInput pm;
-    private int magazineSize = 36;
-    private int startingReserve = 72;
-    private int reserveAmmo;
+    private int magazineSize = 12;
     private int ammoInWeapon;
 
     private bool triggerPulled = false;
@@ -38,7 +36,6 @@ public class Pistol : Weapon
     private void Start()
     {
         ammoInWeapon = magazineSize;
-        reserveAmmo = startingReserve;
         pad = (Gamepad)pm.devices[0];
         anim = GetComponent<Animator>();
         phm = FindObjectOfType<PlayerHealthManager>();
@@ -57,7 +54,7 @@ public class Pistol : Weapon
 
     public override void Reload()
     {
-        if (!firing && reserveAmmo > 0 && ammoInWeapon < magazineSize)
+        if (!firing && ammoInWeapon < magazineSize)
         {
             StartCoroutine(ReloadEnumator());
 
@@ -71,16 +68,7 @@ public class Pistol : Weapon
         yield return new WaitForSeconds(1f);
         reloadSound.Play();
         yield return new WaitForSeconds(1f);
-        reserveAmmo += ammoInWeapon;
-        if (reserveAmmo / magazineSize > 0)
-        {
-            ammoInWeapon = magazineSize;
-            reserveAmmo -= magazineSize;
-        } else
-        {
-            ammoInWeapon = reserveAmmo;
-            reserveAmmo = 0;
-        }
+        ammoInWeapon = magazineSize;
         reloading = false;
         UpdateAmmoDisplay();
     }
@@ -143,22 +131,19 @@ public class Pistol : Weapon
             pad.SetMotorSpeeds(.9f, .9f);
         }
         yield return new WaitForSeconds(.1f);
-        for (int i = 0; i < 3; i++)
+        RaycastHit objecthit;
+        if (Physics.Raycast(barrelForward.position, barrelForward.forward, out objecthit, Mathf.Infinity, validLayers))
         {
-            RaycastHit objecthit;
-            if (Physics.Raycast(barrelForward.position, barrelForward.forward, out objecthit, Mathf.Infinity, validLayers))
+            if (objecthit.collider.gameObject.layer == 6)
             {
-                if (objecthit.collider.gameObject.layer == 6)
-                {
-                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
-                }
-
+                objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
             }
-            rotationforce *= new Quaternion(-.12f, 0, 0, 1);
-            ammoInWeapon--;
-            UpdateAmmoDisplay();
-            yield return new WaitForSeconds(.05f);
+
         }
+        rotationforce *= new Quaternion(-.12f, 0, 0, 1);
+        ammoInWeapon--;
+        UpdateAmmoDisplay();
+        yield return new WaitForSeconds(.05f);
         if (pad != null)
         {
             pad.SetMotorSpeeds(0, 0);
@@ -170,6 +155,6 @@ public class Pistol : Weapon
 
     private void UpdateAmmoDisplay()
     {
-        ammoText.text = "Bullets: " + ammoInWeapon + "/" + reserveAmmo;
+        ammoText.text = "Bullets: " + ammoInWeapon + "/inf";
     }
 }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -194,30 +195,36 @@ sealed class WeaponController : MonoBehaviour
 
     public void SwapWeapon(InputAction.CallbackContext ctx)
     {
-        Debug.Log(ctx.ReadValue<float>());
-        if (ctx.ReadValue<float>() < 0)
+        if (ctx.performed)
         {
-            currentWeaponIndex = (currentWeaponIndex - 1) % 2;
-        } else if (ctx.ReadValue<float>() > 0)
-        {
-            currentWeaponIndex = (currentWeaponIndex + 1) % 2;
-        }
-
-        if (ctx.ReadValue<float>() != 0)
-        {
-            for (int i = 0; i < weapons.Length; i++)
+            Debug.Log(ctx.ReadValue<float>());
+            if (ctx.ReadValue<float>() < 0)
             {
-                if (i == currentWeaponIndex)
+                currentWeaponIndex = math.abs((currentWeaponIndex - 1) % 2);
+            }
+            else if (ctx.ReadValue<float>() > 0)
+            {
+                currentWeaponIndex = (currentWeaponIndex + 1) % 2;
+            }
+
+            if (ctx.ReadValue<float>() != 0)
+            {
+                for (int i = 0; i < weapons.Length; i++)
                 {
-                    weapons[i].MakeActive();
-                    currentWeapon = weapons[i];
-                }
-                else
-                {
-                    weapons[i].PutAway();
+                    if (i == currentWeaponIndex)
+                    {
+                        weapons[i].MakeActive();
+                        currentWeapon = weapons[i];
+                    }
+                    else
+                    {
+                        weapons[i].PutAway();
+                    }
                 }
             }
+
         }
+ 
     }
 
     public void FireWeapon(InputAction.CallbackContext ctx)
