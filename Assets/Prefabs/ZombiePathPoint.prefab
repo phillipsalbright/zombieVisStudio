@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 0
   movePoints: []
+  capsuleMesh: {fileID: 8587668601156954007}
 --- !u!136 &3488606909340238043
 CapsuleCollider:
   m_ObjectHideFlags: 0
