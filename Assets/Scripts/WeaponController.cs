@@ -151,7 +151,7 @@ sealed class WeaponController : MonoBehaviour
         comp = comp.normalized;
         */
         // Update
-        Quaternion controllerQuat = new Quaternion(stickMovement.y / -110, stickMovement.x / 160, 0, 1);
+        Quaternion controllerQuat = new Quaternion(stickMovement.y * Time.deltaTime / -1.375f, stickMovement.x * Time.deltaTime / 2, 0, 1);
         totalControllerRotation *= controllerQuat;
         controllerRotation = rot;
         transform.localRotation = totalControllerRotation*rot; // Used to be rot*totalControllerRotation, was causing stick to reduce gyro sensitivity, is this better? 
