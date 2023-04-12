@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 600076611240674926}
   - component: {fileID: 9201573488055205597}
   - component: {fileID: 5609756676655075866}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
-  healthRestore: 3
+  healthRestore: 6

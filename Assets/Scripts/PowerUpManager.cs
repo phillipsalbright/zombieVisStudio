@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Burst.CompilerServices;
+using UnityEngine.InputSystem;
 
 public class PowerUpManager : Singleton<PowerUpManager>
 {
@@ -104,10 +106,18 @@ public class PowerUpManager : Singleton<PowerUpManager>
     }
 
     public void Heal(int health){
-
+        FindObjectOfType<PlayerHealthManager>().Heal(health);
     }
 
-    public void RestoreAmmo(int ammo){
-
+    public void RestoreAmmo(int ammo, int player)
+    {
+        PlayerInput[] players = FindObjectsOfType<PlayerInput>();
+        foreach (PlayerInput p in players)
+        {
+            if (p.playerIndex == player)
+            {
+                p.gameObject.GetComponentInChildren<AssaultRifle>().GainAmmo(ammo);
+            }
+        }
     }
 }
