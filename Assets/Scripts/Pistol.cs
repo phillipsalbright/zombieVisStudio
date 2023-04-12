@@ -5,6 +5,7 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using TMPro;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 
 public class Pistol : Weapon
@@ -21,6 +22,8 @@ public class Pistol : Weapon
     [SerializeField] private ParticleSystem particlesMuzzleFlash;
     [SerializeField] private LineRenderer laserSight;
     [SerializeField] private Transform laserOrigin;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private Sprite[] crosshairSprites;
     private int magazineSize = 12;
     private int ammoInWeapon;
 
@@ -35,6 +38,7 @@ public class Pistol : Weapon
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private TMP_Text healthText;
     private PlayerHealthManager phm;
+    private int playerNum;
 
     private void Start()
     {
@@ -43,6 +47,7 @@ public class Pistol : Weapon
         anim = GetComponent<Animator>();
         phm = FindObjectOfType<PlayerHealthManager>();
         UpdateAmmoDisplay();
+        playerNum = pm.playerIndex;
     }
 
     public override void AttackDown()
@@ -79,6 +84,8 @@ public class Pistol : Weapon
     public override void PutAway()
     {
         this.gameObject.SetActive(false);
+        reloading = false;
+        firing = false;
     }
 
     public override void MakeActive()
@@ -127,14 +134,33 @@ public class Pistol : Weapon
         healthText.text = "Health: " + phm.GetHealth();
 
         RaycastHit objecthit;
-        if (Physics.Raycast(barrelForward.position, barrelForward.forward, out objecthit, Mathf.Infinity, validLayers))
+        if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
         {
-            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude, 7)));
+            Debug.Log(objecthit.transform.gameObject.name);
+            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude/ 1.4f, 7)));
+            crosshair.transform.position = objecthit.point;
+            if ((objecthit.point - laserOrigin.position).magnitude <= 15)
+            {
+                crosshair.SetActive(true);
 
+            }
+            else
+            {
+                crosshair.SetActive(false);
+            }
+            if (firing)
+            {
+                crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[(playerNum*2 + 1) % crosshairSprites.Length];
+            }
+            else
+            {
+                crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[playerNum*2 % crosshairSprites.Length];
+            }
         }
         else
         {
             laserSight.SetPosition(1, new Vector3(0, 0, 7));
+            crosshair.SetActive(false);
         }
     }
 
@@ -152,7 +178,7 @@ public class Pistol : Weapon
         {
             if (objecthit.collider.gameObject.layer == 6)
             {
-                objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
+                objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(3);
             }
 
         }
