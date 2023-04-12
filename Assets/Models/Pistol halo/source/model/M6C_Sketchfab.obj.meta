@@ -12,6 +12,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: g_Frame_LP.001_Frame_LP.001_Main_Frame_LP.001_Frame_LP.001_Main_g_Frame_LP.001_Frame_LP.001_Main_Frame_LP.001_Frame_LP.001_Main_MainMat
+    second: {fileID: 2100000, guid: 2df609a6a8fcf6d4780d5887778310aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: g_Front_sight_LP.001_Front_sight_LP.001_Mag_Stn_Front_sight.000_g_Front_sight_LP.001_Front_sight_LP.001_Mag_Stn_Front_sight.000_Mag_StnMat
+    second: {fileID: 2100000, guid: ff87cf075301c2e4399cc95311862399, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: g_Mag_Extended_LP.001_Mag_Extended_LP.001_Mag_Ext_Mag_Extended__g_Mag_Extended_LP.001_Mag_Extended_LP.001_Mag_Ext_Mag_Extended__Mag_ExtMat
     second: {fileID: 2100000, guid: bb48ae53029f8d9488efd1346180b7f0, type: 2}
   - first:

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.UI;
 
-public class AssaultRifle : Weapon
+public class Pistol : Weapon
 {
     [SerializeField] private Transform modelTransform;
     [SerializeField] private Transform recoilTransform;
