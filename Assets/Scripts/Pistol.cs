@@ -18,11 +18,14 @@ public class Pistol : Weapon
     [SerializeField] private Transform barrelForward;
     [SerializeField] private LayerMask validLayers;
     [SerializeField] private PlayerInput pm;
+    [SerializeField] private ParticleSystem particlesMuzzleFlash;
+    [SerializeField] private LineRenderer laserSight;
+    [SerializeField] private Transform laserOrigin;
     private int magazineSize = 12;
     private int ammoInWeapon;
 
     private bool triggerPulled = false;
-    private float timeBetweenShots = .4f;
+    private float timeBetweenShots = .2f;
     private float timeSinceLastShot = 0;
     private Quaternion rotationforce = Quaternion.identity;
     private Gamepad pad;
@@ -93,13 +96,15 @@ public class Pistol : Weapon
         timeSinceLastShot += Time.deltaTime;
         if (triggerPulled && timeSinceLastShot > timeBetweenShots && !reloading)
         {
-            if (ammoInWeapon >= 3)
+            triggerPulled = false;
+            if (ammoInWeapon > 0)
             {
                 StartCoroutine(Fire());
                 timeSinceLastShot = 0;
                 muzzleFlash.SetActive(true);
-
-            } else
+                particlesMuzzleFlash.Play();
+            }
+            else
             {
                 timeSinceLastShot = 0;
                 emptySound.Play();
@@ -118,8 +123,19 @@ public class Pistol : Weapon
             muzzleFlash.SetActive(false);
         }
         recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
-        rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1);
+        rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1.5f);
         healthText.text = "Health: " + phm.GetHealth();
+
+        RaycastHit objecthit;
+        if (Physics.Raycast(barrelForward.position, barrelForward.forward, out objecthit, Mathf.Infinity, validLayers))
+        {
+            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude, 7)));
+
+        }
+        else
+        {
+            laserSight.SetPosition(1, new Vector3(0, 0, 7));
+        }
     }
 
     private IEnumerator Fire()
@@ -140,7 +156,7 @@ public class Pistol : Weapon
             }
 
         }
-        rotationforce *= new Quaternion(-.12f, 0, 0, 1);
+        rotationforce *= new Quaternion(-.25f, 0, 0, 1);
         ammoInWeapon--;
         UpdateAmmoDisplay();
         yield return new WaitForSeconds(.05f);
