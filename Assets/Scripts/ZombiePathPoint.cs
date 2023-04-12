@@ -8,10 +8,15 @@ public class ZombiePathPoint : MonoBehaviour
     private bool attackPoint = false;
     [SerializeField, Tooltip("All of the possible ZombiePathPoints that the zombies can go to after this one. Should stay empty for innermost ring")]
     private List<GameObject> movePoints = new List<GameObject>();
+    [SerializeField, Tooltip("the object mesh to be disabled on startup")]
+    private GameObject capsuleMesh;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(capsuleMesh != null){
+                capsuleMesh.SetActive(false);
+        }
     }
 
     // Update is called once per frame

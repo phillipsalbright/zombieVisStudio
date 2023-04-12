@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerHealthManager : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
+    [SerializeField] private float maxHealth = 50;
     [SerializeField] private GameObject[] redScreens;
     private float health;
     private Animator anim;
@@ -15,7 +16,7 @@ public class PlayerHealthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = startingHealth;
+        health = Mathf.Min(startingHealth, maxHealth);
         anim = GetComponentInParent<Animator>();
     }
 
@@ -70,5 +71,10 @@ public class PlayerHealthManager : MonoBehaviour
     public float GetHealth()
     {
         return health;
+    }
+
+    public void Heal(float healAmount)
+    {
+        health = Mathf.Min(health + healAmount, maxHealth);
     }
 }

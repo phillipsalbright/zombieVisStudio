@@ -15572,7 +15572,7 @@ MonoBehaviour:
   barrelForward: {fileID: 7838281059303562209}
   validLayers:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 247
   pm: {fileID: 0}
   particlesMuzzleFlash: {fileID: 1623828301}
   laserSight: {fileID: 5948721629319206771}

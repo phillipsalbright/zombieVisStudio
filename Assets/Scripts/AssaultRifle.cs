@@ -188,6 +188,10 @@ public class AssaultRifle : Weapon
                 {
                     objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
                 }
+                else if (objecthit.collider.gameObject.layer == 7)
+                {
+                    objecthit.collider.gameObject.GetComponent<PowerUp>().Activate(playerNum);
+                }
 
             }
             rotationforce *= new Quaternion(-.12f, 0, 0, 1);
@@ -207,5 +211,10 @@ public class AssaultRifle : Weapon
     private void UpdateAmmoDisplay()
     {
         ammoText.text = "Bullets: " + ammoInWeapon + "/" + reserveAmmo;
+    }
+
+    public void GainAmmo(int ammo)
+    {
+        reserveAmmo += ammo;
     }
 }
