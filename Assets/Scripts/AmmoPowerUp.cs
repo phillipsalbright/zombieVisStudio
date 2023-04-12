@@ -6,11 +6,11 @@ public class AmmoPowerUp : PowerUp
 {
     [Header("Ammo PowerUp Settings")]
     [SerializeField, Tooltip("The amount of ammo that is restored")]
-    private int ammoRestore = 5;
+    private int ammoRestore = 21;
     
-    public override void Activate()
+    public override void Activate(int player)
     {
-        PowerUpManager.Instance.RestoreAmmo(ammoRestore);
-        base.Activate();
+        PowerUpManager.Instance.RestoreAmmo(ammoRestore, player);
+        base.Activate(player);
     }
 }

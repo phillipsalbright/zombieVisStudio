@@ -23,7 +23,7 @@ public class PowerUp : MonoBehaviour
             DespawnPowerUp();
         }
     }
-    public virtual void Activate(){
+    public virtual void Activate(int player){
         DespawnPowerUp();
     }
 

@@ -1795,7 +1795,7 @@ Transform:
   m_GameObject: {fileID: 4913880712113022483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2045519630782262655}
@@ -1926,6 +1926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 50
+  maxHealth: 50
   redScreens:
   - {fileID: 4602010878769143723}
   - {fileID: 6825212476090138111}

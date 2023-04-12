@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7108781719645900669}
   - component: {fileID: 5959457078677473213}
   - component: {fileID: 3244310704489110175}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AmmoPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
-  ammoRestore: 5
+  ammoRestore: 21

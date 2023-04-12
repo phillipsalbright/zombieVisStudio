@@ -1512,7 +1512,7 @@ MonoBehaviour:
   barrelForward: {fileID: 7838281059303562209}
   validLayers:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 247
   pm: {fileID: 0}
   ammoText: {fileID: 3426586649705654919}
   healthText: {fileID: 5793014985243620766}
