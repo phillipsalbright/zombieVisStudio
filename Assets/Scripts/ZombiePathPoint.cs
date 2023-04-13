@@ -83,4 +83,8 @@ public class ZombiePathPoint : MonoBehaviour
         return movePoints[rand];
     }
 
+    public void DestroyThis(){
+        DestroyImmediate(gameObject);
+    }
+
 }

@@ -49,6 +49,7 @@ public class AssaultRifle : Weapon
         phm = FindObjectOfType<PlayerHealthManager>();
         UpdateAmmoDisplay();
         playerNum = pm.playerIndex;
+        laserSight.SetWidth(laserSight.startWidth * this.transform.root.lossyScale.x, laserSight.startWidth *this.transform.root.lossyScale.x);
     }
 
     public override void AttackDown()
@@ -143,7 +144,7 @@ public class AssaultRifle : Weapon
         RaycastHit objecthit;
         if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
         {
-            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude / 1.4f, 7)));
+            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude / this.transform.lossyScale.x, 7)));
             crosshair.transform.position = objecthit.point;
             if ((objecthit.point - laserOrigin.position).magnitude <= 15)
             {

@@ -151,10 +151,12 @@ sealed class WeaponController : MonoBehaviour
         comp = comp.normalized;
         */
         // Update
-        Quaternion controllerQuat = new Quaternion(stickMovement.y / -110, stickMovement.x / 160, 0, 1);
-        totalControllerRotation *= controllerQuat;
+        Quaternion stickQuat = new Quaternion(stickMovement.y * Time.deltaTime / -1.375f, stickMovement.x * Time.deltaTime / 2, 0, 1);
+        totalControllerRotation *= stickQuat;
         controllerRotation = rot;
-        transform.localRotation = rot * totalControllerRotation;
+        transform.localRotation = totalControllerRotation*rot; // Used to be rot*totalControllerRotation, was causing stick to reduce gyro sensitivity, is this better? 
+            //Not sure, maybe. seems that way but I am skeptical. Below is comparison log which PROVEs they are different (common sense idiot)
+            //  Debug.LogError("Total*rot = " + totalControllerRotation * rot + "    rot*Total = " + rot* totalControllerRotation);
         if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
             if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 

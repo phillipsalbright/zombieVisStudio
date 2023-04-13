@@ -48,6 +48,7 @@ public class Pistol : Weapon
         phm = FindObjectOfType<PlayerHealthManager>();
         UpdateAmmoDisplay();
         playerNum = pm.playerIndex;
+        laserSight.SetWidth(laserSight.startWidth * this.transform.root.lossyScale.x, laserSight.startWidth * this.transform.root.lossyScale.x);
     }
 
     public override void AttackDown()
@@ -130,14 +131,14 @@ public class Pistol : Weapon
             muzzleFlash.SetActive(false);
         }
         recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
-        rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1.5f);
+        rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime * 1.5f), 0, 0, 1.5f);
         healthText.text = "Health: " + phm.GetHealth();
 
         RaycastHit objecthit;
         if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
         {
             Debug.Log(objecthit.transform.gameObject.name);
-            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude/ 1.4f, 7)));
+            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude/ this.transform.lossyScale.x, 7)));
             crosshair.transform.position = objecthit.point;
             if ((objecthit.point - laserOrigin.position).magnitude <= 15)
             {
