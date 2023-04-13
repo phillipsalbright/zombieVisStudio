@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3027149685992492118}
   - component: {fileID: 2918702689465540360}
   - component: {fileID: 3488606909340238043}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZombiePathPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 3504282679080583131}
   - component: {fileID: 2083300952925758643}
   - component: {fileID: 8572574205184251891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
