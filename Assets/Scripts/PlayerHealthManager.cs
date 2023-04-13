@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class PlayerHealthManager : MonoBehaviour
     private float health;
     private Animator anim;
     private bool dead = false;
+    private int zombiesKilled;
 
     // Start is called before the first frame update
     void Start()
     {
         health = Mathf.Min(startingHealth, maxHealth);
         anim = GetComponentInParent<Animator>();
+        zombiesKilled = 0;
     }
 
     private void Update()
@@ -56,7 +59,13 @@ public class PlayerHealthManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++) {
             Destroy(players[i].gameObject);
         }
-        yield return new WaitForSeconds(5f);
+
+        TMP_Text[] texts = anim.gameObject.GetComponentsInChildren<TMP_Text>();
+        for (int i = 0; i < texts.Length; i++)
+        {
+            texts[i].text = "Zombies killed: " + zombiesKilled;
+        }
+        yield return new WaitForSeconds(10f);
 
         SceneManager.LoadScene(0);
     }
@@ -76,5 +85,10 @@ public class PlayerHealthManager : MonoBehaviour
     public void Heal(float healAmount)
     {
         health = Mathf.Min(health + healAmount, maxHealth);
+    }
+
+    public void ZombieKilled()
+    {
+        zombiesKilled++;
     }
 }

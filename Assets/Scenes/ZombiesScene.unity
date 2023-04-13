@@ -7716,6 +7716,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449038787779846769, guid: 10cd8e0914fbb7246b16913eaf616159,
         type: 3}
+      propertyPath: areaSpawns
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449038787779846769, guid: 10cd8e0914fbb7246b16913eaf616159,
+        type: 3}
       propertyPath: powerUpSpawnDelay
       value: 15
       objectReference: {fileID: 0}
