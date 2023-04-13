@@ -9,6 +9,6 @@ public class PlayerPlacer : MonoBehaviour
     private void OnPlayerJoined(PlayerInput playerInput)
     {
         playerInput.transform.position = root.position + new Vector3(0, -.08f, 0);
-        playerInput.transform.localScale = root.localScale;
+        playerInput.transform.localScale = new Vector3(.65f, .65f, .65f);
     }
 }

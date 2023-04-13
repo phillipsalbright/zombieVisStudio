@@ -54,6 +54,7 @@ public class PlayerHealthManager : MonoBehaviour
     private IEnumerator Die()
     {
         anim.SetTrigger("Death");
+        FindObjectOfType<PlayerInputManager>().DisableJoining();
         PlayerInput[] players = FindObjectsOfType<PlayerInput>();
         dead = true;
         for (int i = 0; i < players.Length; i++) {
