@@ -119,11 +119,6 @@ sealed class WeaponController : MonoBehaviour
 
     void Update()
     {
-        //Vector3 rotate = _accGyro.eulerAngles;
-        //Debug.LogError(_accGyro);
-        // Current status
-        var rot = controllerRotation; // use transform.localRotation to not preserve controller rotation past bounds
-
         // Rotation from gyroscope
         if (schemenum == 0) //ps4 with bluetooth
         {
@@ -135,31 +130,17 @@ sealed class WeaponController : MonoBehaviour
 
         }
 
-        Vector3 newRotation = rot.eulerAngles;
-        newRotation.x += _accGyro.eulerAngles.x;
-        newRotation.y += _accGyro.eulerAngles.y;
-        rot = Quaternion.Euler(newRotation);
+        Quaternion yQuatController = Quaternion.AngleAxis(_accGyro.eulerAngles.y, Vector3.up);
+        Quaternion xQuatController = Quaternion.AngleAxis(_accGyro.eulerAngles.x, Vector3.right);
+        controllerRotation = yQuatController * controllerRotation * xQuatController; // use transform.localRotation to not preserve controller rotation past bounds
         _accGyro = Quaternion.identity;
-
-        // Accelerometer input
-        /** not using this
-        var accel = playerInput.devices[0]?.GetChildControl<Vector3Control>("accel");
-        var gravity = accel?.ReadValue() ?? -Vector3.up;
-
-        // Drift compensation using gravitational acceleration
-        var comp = Quaternion.FromToRotation(rot * gravity, -Vector3.up);
-
-        // Compensation reduction
-        comp.w *= 0.1f / Time.deltaTime;
-        comp = comp.normalized;
-        */
-        // Update
-        Vector3 stickRotVec3 = totalStickRotation.eulerAngles;
-        stickRotVec3.x += -50 * stickMovement.y * Time.deltaTime;
-        stickRotVec3.y += 50 * stickMovement.x * Time.deltaTime;
-        totalStickRotation = Quaternion.Euler(stickRotVec3);
-        controllerRotation = rot;
-        transform.localRotation = Quaternion.Euler(stickRotVec3 + newRotation);
+        Quaternion yQuatStick = Quaternion.AngleAxis(stickMovement.x * Time.deltaTime * 100, Vector3.up);
+        Quaternion xQuatStick = Quaternion.AngleAxis(stickMovement.y * Time.deltaTime * -100, Vector3.right);
+        totalStickRotation = yQuatStick * totalStickRotation * xQuatStick;
+        Quaternion xQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.y + totalStickRotation.eulerAngles.y, Vector3.up);
+        Quaternion yQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.x + totalStickRotation.eulerAngles.x, Vector3.right);
+        transform.localRotation = xQuatTotal * Quaternion.identity * yQuatTotal; //Quaternion.Euler(stickRotVec3 + newRotation);
+        Debug.Log(transform.localEulerAngles.x);
         if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
             if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 
