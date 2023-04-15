@@ -179,7 +179,11 @@ public class Pistol : Weapon
         {
             if (objecthit.collider.gameObject.layer == 6)
             {
-                objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(3);
+                if (objecthit.collider.gameObject.GetComponent<ZombieDismemberment>() != null) {
+                    objecthit.collider.gameObject.GetComponent<ZombieDismemberment>().DamageBodyPart(3);
+                } else {
+                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(3, 0);
+                }
             } else if (objecthit.collider.gameObject.layer == 7)
             {
                 objecthit.collider.gameObject.GetComponent<PowerUp>().Activate(playerNum);

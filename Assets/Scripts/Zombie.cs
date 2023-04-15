@@ -34,6 +34,12 @@ public class Zombie : MonoBehaviour
     private float timeBetweenAttacks = 3.3f;
     private float timeSinceLastAttack = 2f;
     private bool dead = false;
+    [SerializeField] private float headHealth;
+    [SerializeField] private float leftArmHealth;
+    [SerializeField] private float rightArmHealth;
+    [SerializeField] private GameObject head;
+    [SerializeField] private GameObject leftArm;
+    [SerializeField] private GameObject rightArm;
 
     // Start is called before the first frame update
     void Start()
@@ -127,14 +133,43 @@ public class Zombie : MonoBehaviour
             
         }
     }
-
-    public void TakeDamage(float damage)
+    public enum DamageType { Body=0, Head=1, LeftArm=2, RightArm=3 };
+    public void TakeDamage(float damage, int damageType)
     {
         animator.SetTrigger("Hit");
         health -= damage;
         if (health <= 0)
         {
             StartCoroutine(Die());
+        }
+        switch((DamageType)damageType) {
+            case DamageType.Body:
+                break;
+            case DamageType.Head:
+                if (head.activeInHierarchy) {
+                    headHealth -= damage;
+                    if (headHealth <= 0) {
+                        head.SetActive(false);
+                    }
+                }
+                break;
+            case DamageType.LeftArm:
+                if (leftArm.activeInHierarchy) {
+                    leftArmHealth -= damage;
+                    if (leftArmHealth <= 0) {
+                        leftArm.SetActive(false);
+                    }
+                }
+                break;
+            case DamageType.RightArm:
+                if (head.activeInHierarchy) {
+                    rightArmHealth -= damage;
+                    if (rightArmHealth <= 0) {
+                        rightArm.SetActive(false);
+                    }
+                }
+                break;
+            default: break;
         }
     }
 
