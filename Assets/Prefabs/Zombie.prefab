@@ -122,9 +122,9 @@ MonoBehaviour:
   aiType: 0
   animator: {fileID: 5340889004155685649}
   startingHealth: 20
-  headHealth: 0
-  leftArmHealth: 0
-  rightArmHealth: 0
+  headHealth: 10
+  leftArmHealth: 5
+  rightArmHealth: 5
   head: {fileID: 0}
   leftArm: {fileID: 0}
   rightArm: {fileID: 0}
