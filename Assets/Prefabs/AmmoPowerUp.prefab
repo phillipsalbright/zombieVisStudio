@@ -111,4 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
+  bobSpeed: 2
+  bobHeight: 0.25
+  rotationSpeed: 5
   ammoRestore: 21
