@@ -182,8 +182,8 @@ public class Pistol : Weapon
         {
             if (objecthit.collider.gameObject.layer == 6)
             {
-                if (objecthit.collider.gameObject.GetComponent<ZombieDismemberment>() != null) {
-                    objecthit.collider.gameObject.GetComponent<ZombieDismemberment>().DamageBodyPart(3);
+                if (objecthit.collider.gameObject.GetComponent<Hitbox>() != null) {
+                    objecthit.collider.gameObject.GetComponent<Hitbox>().DamageBodyPart(3);
                 } else {
                     objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(3, 0);
                 }

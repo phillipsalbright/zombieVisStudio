@@ -10,6 +10,14 @@ public class Zombie : MonoBehaviour
         Aggressive,
         Circling
     }
+
+    public enum DamageType
+    {
+        Body = 0, 
+        Head = 1, 
+        LeftArm = 2, 
+        RightArm = 3
+    }
     [SerializeField, Tooltip("This zombie's destination. Should be set automatically")]
     GameObject dest;
     [SerializeField, Tooltip("this zombie's navmeshagent")]
@@ -133,7 +141,6 @@ public class Zombie : MonoBehaviour
             
         }
     }
-    public enum DamageType { Body=0, Head=1, LeftArm=2, RightArm=3 };
     public void TakeDamage(float damage, int damageType)
     {
         animator.SetTrigger("Hit");
@@ -180,6 +187,11 @@ public class Zombie : MonoBehaviour
         StopMoving();
         this.enabled = false;
         this.GetComponent<Collider>().enabled = false;
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders)
+        {
+            c.enabled = false;
+        }
         FindObjectOfType<PlayerHealthManager>().ZombieKilled();
         yield return new WaitForSeconds(1f);
         PowerUpManager.Instance.OnDeathPowerUpSpawn(transform.position);

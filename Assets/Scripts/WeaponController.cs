@@ -140,7 +140,6 @@ sealed class WeaponController : MonoBehaviour
         Quaternion xQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.y + totalStickRotation.eulerAngles.y, Vector3.up);
         Quaternion yQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.x + totalStickRotation.eulerAngles.x, Vector3.right);
         transform.localRotation = xQuatTotal * Quaternion.identity * yQuatTotal; //Quaternion.Euler(stickRotVec3 + newRotation);
-        Debug.Log(transform.localEulerAngles.x);
         if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
             if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 
