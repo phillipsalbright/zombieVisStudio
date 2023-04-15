@@ -190,7 +190,11 @@ public class AssaultRifle : Weapon
             {
                 if (objecthit.collider.gameObject.layer == 6)
                 {
-                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
+                    if (objecthit.collider.gameObject.GetComponent<ZombieDismemberment>() != null) {
+                        objecthit.collider.gameObject.GetComponent<ZombieDismemberment>().DamageBodyPart(5);
+                    } else {
+                        objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5, 0);
+                    }
                     VisualEffect bloodEffect = Instantiate(blood, objecthit.point, Quaternion.LookRotation((objecthit.point - barrelForward.position)), objecthit.transform);
                     bloodEffect.Play();
                 }
