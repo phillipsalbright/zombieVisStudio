@@ -9,9 +9,9 @@ public class PowerUp : MonoBehaviour
     private float lifetime = 10f;
     //lifetime timer
     private float lifeTimer = 10f;
-    [SerializeField] private float bobSpeed = 2f;
+    [SerializeField] private float bobSpeed = 2.5f;
     [SerializeField] private float bobHeight = 0.25f;
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 45f;
     private float yPos;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class PowerUp : MonoBehaviour
         if(lifeTimer < 0){
             DespawnPowerUp();
         }
-        transform.position = new Vector3(transform.position.x, Mathf.Cos(Time.time * bobSpeed) * bobHeight + yPos, transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.time * bobSpeed) * bobHeight + yPos, transform.position.z);
         transform.Rotate(Vector3.up * rotationSpeed * Time.fixedDeltaTime, Space.Self);
     }
     public virtual void Activate(int player){
