@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class AssaultRifle : Weapon
 {
@@ -38,6 +39,7 @@ public class AssaultRifle : Weapon
     [SerializeField] private Transform laserOrigin;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private Sprite[] crosshairSprites;
+    [SerializeField] private VisualEffect blood;
     private int playerNum;
 
     private void Start()
@@ -189,6 +191,8 @@ public class AssaultRifle : Weapon
                 if (objecthit.collider.gameObject.layer == 6)
                 {
                     objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
+                    VisualEffect bloodEffect = Instantiate(blood, objecthit.point, Quaternion.LookRotation((objecthit.point - barrelForward.position)), objecthit.transform);
+                    bloodEffect.Play();
                 }
                 else if (objecthit.collider.gameObject.layer == 7)
                 {

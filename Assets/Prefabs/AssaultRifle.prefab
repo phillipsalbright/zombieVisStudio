@@ -1832,6 +1832,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e23c6d8942a66dd44bc06f749f795607, type: 3}
   - {fileID: 21300000, guid: 7befa9936291ac4468971c394288b31b, type: 3}
   - {fileID: 21300000, guid: adb2c82f52ad84248bdca3d1fa07782a, type: 3}
+  blood: {fileID: 2836187100652738555, guid: 5aae9faaff8548d44b163cc5b3206ecd, type: 3}
 --- !u!95 &8716275798472015936
 Animator:
   serializedVersion: 5

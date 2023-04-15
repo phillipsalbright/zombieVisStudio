@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class Pistol : Weapon
 {
@@ -24,6 +25,8 @@ public class Pistol : Weapon
     [SerializeField] private Transform laserOrigin;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private Sprite[] crosshairSprites;
+
+    [SerializeField] private VisualEffect blood;
     private int magazineSize = 12;
     private int ammoInWeapon;
 
@@ -180,6 +183,9 @@ public class Pistol : Weapon
             if (objecthit.collider.gameObject.layer == 6)
             {
                 objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(3);
+                VisualEffect bloodEffect = Instantiate(blood, objecthit.point, Quaternion.LookRotation((objecthit.point - barrelForward.position)), objecthit.transform);
+                bloodEffect.Play();
+
             } else if (objecthit.collider.gameObject.layer == 7)
             {
                 objecthit.collider.gameObject.GetComponent<PowerUp>().Activate(playerNum);
