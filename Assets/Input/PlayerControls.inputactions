@@ -75,7 +75,7 @@
                 {
                     "name": "",
                     "id": "0812f2a6-ef31-4504-8006-9e1e0ce38fad",
-                    "path": "",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -277,6 +277,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "PS4",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "3f7601f3-94b0-4272-9fa8-9ce0fab40b01",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "eeea5b02-a0c1-42c9-bcaa-1d28dc339e78",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "0ea30991-d44b-4165-b635-97af67fcbc8d",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": true

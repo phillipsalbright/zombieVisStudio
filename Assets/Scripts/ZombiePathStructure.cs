@@ -60,7 +60,7 @@ public class ZombiePathStructure : MonoBehaviour
             zombiePoints.Add(new List<GameObject>());
             for(int j = 0; j < overlapPoints[i].Count; j++){
                 try{
-                    GameObject newPoint = Instantiate(zombiePoint, new Vector3(overlapPoints[i][j].x, 0, overlapPoints[i][j].z), Quaternion.identity, transform);
+                    GameObject newPoint = Instantiate(zombiePoint, new Vector3(overlapPoints[i][j].x, transform.position.y, overlapPoints[i][j].z), Quaternion.identity, transform);
                     zombiePoints[i].Add(newPoint);
                     if(i == 0){
                         newPoint.GetComponent<ZombiePathPoint>().SetAttackPoint(true);
@@ -98,17 +98,29 @@ public class ZombiePathStructure : MonoBehaviour
     }
 
     public void DeletePoints(){
-        while(zombiePoints.Count > 0){
-            while(zombiePoints[0].Count > 0){
-                GameObject o = zombiePoints[0][0];
-                zombiePoints[0].RemoveAt(0);
-                if(o != null){
-                    DestroyImmediate(o);
-                }
-            }
-            zombiePoints[0] = null;
-            zombiePoints.RemoveAt(0);
+        // while(zombiePoints.Count > 0){
+        //     while(zombiePoints[0].Count > 0){
+        //         GameObject o = zombiePoints[0][0];
+        //         zombiePoints[0].RemoveAt(0);
+        //         if(o != null){
+        //             DestroyImmediate(o);
+        //         }
+        //     }
+        //     zombiePoints[0] = null;
+        //     zombiePoints.RemoveAt(0);
+        // }
+        // zombiePoints = null;
+        ZombiePathPoint[] children = transform.GetComponentsInChildren<ZombiePathPoint>();
+        foreach(ZombiePathPoint zpp in children){
+            zpp.DestroyThis();
         }
-        zombiePoints = null;
+        zombiePoints = new List<List<GameObject>>();
+    }
+
+    public void DebugLines(){
+        ZombiePathPoint[] children = transform.GetComponentsInChildren<ZombiePathPoint>();
+        foreach(ZombiePathPoint zpp in children){
+            zpp.DebugDisplay();
+        }
     }
 }

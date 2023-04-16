@@ -91,4 +91,8 @@ public class ZombiePathGenerator : MonoBehaviour
         }
         zPath.SetPoints(points, debugRaysOn);
     }
+
+    public void DebugLines(){
+        zPath.DebugLines();
+    }
 }
