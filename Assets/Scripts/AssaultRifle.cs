@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class AssaultRifle : Weapon
 {
@@ -32,12 +33,13 @@ public class AssaultRifle : Weapon
     private bool firing = false;
     private bool reloading = false;
     [SerializeField] private TMP_Text ammoText;
-    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private Image healthImage;
     private PlayerHealthManager phm;
     [SerializeField] private LineRenderer laserSight;
     [SerializeField] private Transform laserOrigin;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private Sprite[] crosshairSprites;
+    [SerializeField] private VisualEffect blood;
     private int playerNum;
 
     private void Start()
@@ -140,12 +142,13 @@ public class AssaultRifle : Weapon
         }
         recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
         rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1);
-        healthText.text = "Health: " + phm.GetHealth();
+        healthImage.fillAmount = (phm.GetHealth() / phm.GetMaxHealth());
+        //healthText.text = "Health: " + phm.GetHealth();
         RaycastHit objecthit;
         if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
         {
             laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude / this.transform.lossyScale.x, 7)));
-            crosshair.transform.position = objecthit.point;
+            crosshair.transform.position = objecthit.point + (laserOrigin.position - objecthit.point).normalized * .05f;
             if ((objecthit.point - laserOrigin.position).magnitude <= 15)
             {
                 crosshair.SetActive(true);
@@ -187,7 +190,13 @@ public class AssaultRifle : Weapon
             {
                 if (objecthit.collider.gameObject.layer == 6)
                 {
-                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
+                    if (objecthit.collider.gameObject.GetComponent<Hitbox>() != null) {
+                        objecthit.collider.gameObject.GetComponent<Hitbox>().DamageBodyPart(5);
+                    } else {
+                        objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5, 0);
+                    }
+                    VisualEffect bloodEffect = Instantiate(blood, objecthit.point, Quaternion.LookRotation((objecthit.point - barrelForward.position)), objecthit.transform);
+                    bloodEffect.Play();
                 }
                 else if (objecthit.collider.gameObject.layer == 7)
                 {
@@ -211,7 +220,7 @@ public class AssaultRifle : Weapon
 
     private void UpdateAmmoDisplay()
     {
-        ammoText.text = "Bullets: " + ammoInWeapon + "/" + reserveAmmo;
+        ammoText.text = ": " + ammoInWeapon + "/" + reserveAmmo;
     }
 
     public void GainAmmo(int ammo)

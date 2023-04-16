@@ -57,7 +57,8 @@ public class PlayerHealthManager : MonoBehaviour
         FindObjectOfType<PlayerInputManager>().DisableJoining();
         PlayerInput[] players = FindObjectsOfType<PlayerInput>();
         dead = true;
-        for (int i = 0; i < players.Length; i++) {
+        for (int i = 0; i < players.Length; i++)
+        {
             Destroy(players[i].gameObject);
         }
 
@@ -91,5 +92,10 @@ public class PlayerHealthManager : MonoBehaviour
     public void ZombieKilled()
     {
         zombiesKilled++;
+    }
+
+    public float GetMaxHealth()
+    {
+        return this.maxHealth;
     }
 }
