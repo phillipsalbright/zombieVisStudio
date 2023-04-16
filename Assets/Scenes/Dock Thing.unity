@@ -35488,8 +35488,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e6a3a8bc6d7134cbbda821b227aac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelay: 1
+  spawnDelay: 3
   spawnTimer: 0
   spawnPoints: []
   pathStructure: {fileID: 2147389291147861331}
-  zombie: {fileID: 6955133288901806444, guid: 3cbd31e704bfb074f800b8272894624f, type: 3}
+  zombies:
+  - {fileID: 6955133288901806444, guid: 3cbd31e704bfb074f800b8272894624f, type: 3}
+  - {fileID: 134907512402912042, guid: 38d3647b5b66fe6438a811ec8ce1602c, type: 3}

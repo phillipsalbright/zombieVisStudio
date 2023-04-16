@@ -157,6 +157,14 @@ public class Zombie : MonoBehaviour
                     headHealth -= damage;
                     if (headHealth <= 0) {
                         head.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
                     }
                 }
                 break;
@@ -165,6 +173,14 @@ public class Zombie : MonoBehaviour
                     leftArmHealth -= damage;
                     if (leftArmHealth <= 0) {
                         leftArm.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
                     }
                 }
                 break;
@@ -173,6 +189,14 @@ public class Zombie : MonoBehaviour
                     rightArmHealth -= damage;
                     if (rightArmHealth <= 0) {
                         rightArm.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
                     }
                 }
                 break;

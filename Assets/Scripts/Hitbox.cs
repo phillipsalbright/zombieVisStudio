@@ -17,4 +17,9 @@ public class Hitbox : MonoBehaviour
     public void DamageBodyPart(float damage) {
         zombie.TakeDamage(damage, type);
     }
+
+    public int GetType()
+    {
+        return type;
+    }
 }

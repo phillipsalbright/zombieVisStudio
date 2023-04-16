@@ -47,6 +47,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2220500101171444813}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &356364292969861470
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +95,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 4371520717741522890}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &364030446969159631
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +143,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 5594182708331040897}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &873461268095384386
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +193,7 @@ MonoBehaviour:
   - {fileID: 1806324041851559557}
   - {fileID: 1964682647197172276}
   - {fileID: 5594182708331040897}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &1167216427973529882
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &1806324041851559557
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +288,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 6261020512745160229}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &1964682647197172276
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +338,7 @@ MonoBehaviour:
   - {fileID: 4690406472363870741}
   - {fileID: 4159768364192666413}
   - {fileID: 6261020512745160229}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289723514146
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +388,7 @@ MonoBehaviour:
   - {fileID: 2147389289797584332}
   - {fileID: 2147389290114087801}
   - {fileID: 2147389291490653672}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289773420622
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +436,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290114087801}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289791621571
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289797584332
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +531,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290451031601}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289861198799
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +579,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290565870049}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289863219391
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +629,7 @@ MonoBehaviour:
   - {fileID: 2147389289991459823}
   - {fileID: 2147389290872123536}
   - {fileID: 2147389290148557647}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289988836755
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +677,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290405706066}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389289991459823
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290114087801
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +774,7 @@ MonoBehaviour:
   - {fileID: 2147389291618747422}
   - {fileID: 2147389289863219391}
   - {fileID: 2147389290451031601}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290123997015
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +822,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290872123536}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290148557647
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290204934594
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +919,7 @@ MonoBehaviour:
   - {fileID: 2147389291048084273}
   - {fileID: 2147389289723514146}
   - {fileID: 2147389291542919041}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290237343454
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +967,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290801720503}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290334246998
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290405706066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1064,7 @@ MonoBehaviour:
   - {fileID: 2147389291209646243}
   - {fileID: 2147389290768261126}
   - {fileID: 2147389290801720503}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290430979922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1257,7 @@ MonoBehaviour:
   - {fileID: 2147389291115286554}
   - {fileID: 2147389290148557647}
   - {fileID: 2147389290903012605}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290565870049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1307,7 @@ MonoBehaviour:
   - {fileID: 2147389290237343454}
   - {fileID: 2147389290405706066}
   - {fileID: 2147389290846096218}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290588013456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1355,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389291823992530}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290613458655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290768261126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1452,7 @@ MonoBehaviour:
   - {fileID: 2147389290334246998}
   - {fileID: 2147389290903012605}
   - {fileID: 2147389289791621571}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290801720503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1502,7 @@ MonoBehaviour:
   - {fileID: 2147389290613458655}
   - {fileID: 2147389289791621571}
   - {fileID: 2147389290872123536}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290846096218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1552,7 @@ MonoBehaviour:
   - {fileID: 2147389290123997015}
   - {fileID: 2147389290801720503}
   - {fileID: 2147389289863219391}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290872123536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389290903012605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,6 +1646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291032043680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,6 +1694,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389291542919041}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291048084273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,6 +1742,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389291490653672}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291104430194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,6 +1790,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290903012605}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291115286554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291189801712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +1885,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290768261126}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291209646243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1933,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389289791621571}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291241567603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1984,9 @@ MonoBehaviour:
   spawnTimer: 0
   spawnPoints: []
   pathStructure: {fileID: 2147389290430979920}
-  zombie: {fileID: 6955133288901806444, guid: 3cbd31e704bfb074f800b8272894624f, type: 3}
+  zombies:
+  - {fileID: 6955133288901806444, guid: 3cbd31e704bfb074f800b8272894624f, type: 3}
+  - {fileID: 134907512402912042, guid: 38d3647b5b66fe6438a811ec8ce1602c, type: 3}
 --- !u!1 &2147389291359762558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2036,7 @@ MonoBehaviour:
   - {fileID: 2147389289773420622}
   - {fileID: 2147389291823992530}
   - {fileID: 2147389289723514146}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291360094488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2084,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389289863219391}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291400125792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,6 +2186,7 @@ MonoBehaviour:
   - {fileID: 2147389289988836755}
   - {fileID: 2147389291542919041}
   - {fileID: 2147389290565870049}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291490653672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2236,7 @@ MonoBehaviour:
   - {fileID: 2147389291104430194}
   - {fileID: 2147389290451031601}
   - {fileID: 2147389290768261126}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291542413260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2284,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290846096218}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291542919041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2334,7 @@ MonoBehaviour:
   - {fileID: 2147389291189801712}
   - {fileID: 2147389291490653672}
   - {fileID: 2147389290405706066}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291618747422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,6 +2382,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389290148557647}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291762684696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,6 +2430,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 2147389289723514146}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291790985811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2480,7 @@ MonoBehaviour:
   - {fileID: 2147389291542413260}
   - {fileID: 2147389290565870049}
   - {fileID: 2147389291823992530}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2147389291823992530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,6 +2530,7 @@ MonoBehaviour:
   - {fileID: 2147389291360094488}
   - {fileID: 2147389290846096218}
   - {fileID: 2147389290114087801}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2220500101171444813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,6 +2577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &2270661009307480537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,6 +2625,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 4159768364192666413}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &3516361060043916886
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,6 +2675,7 @@ MonoBehaviour:
   - {fileID: 7908051782295018383}
   - {fileID: 5594182708331040897}
   - {fileID: 6375125436765335940}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &3797342941474523065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,6 +2725,7 @@ MonoBehaviour:
   - {fileID: 4563563977378222363}
   - {fileID: 6375125436765335940}
   - {fileID: 8281315108515104791}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &3834857855366974503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,6 +2775,7 @@ MonoBehaviour:
   - {fileID: 2270661009307480537}
   - {fileID: 8281315108515104791}
   - {fileID: 1964682647197172276}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &4159768364192666413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2771,6 +2825,7 @@ MonoBehaviour:
   - {fileID: 5093781318809708662}
   - {fileID: 4371520717741522890}
   - {fileID: 7679894465779135612}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &4371520717741522890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,6 +2875,7 @@ MonoBehaviour:
   - {fileID: 7505412022565773337}
   - {fileID: 7345103534713574731}
   - {fileID: 8614684840033007745}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &4420941297764097209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,6 +2922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &4563563977378222363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2970,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 5440991661536592019}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &4690406472363870741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,6 +3018,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 7679894465779135612}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5093781318809708662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,6 +3066,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 8614684840033007745}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5102093588633941669
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,6 +3114,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 7345103534713574731}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5440991661536592019
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,6 +3164,7 @@ MonoBehaviour:
   - {fileID: 5102093588633941669}
   - {fileID: 5640379511102702749}
   - {fileID: 4371520717741522890}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5594182708331040897
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,6 +3214,7 @@ MonoBehaviour:
   - {fileID: 8454897571925801293}
   - {fileID: 6261020512745160229}
   - {fileID: 6950148301740585314}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5640379511102702749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,6 +3264,7 @@ MonoBehaviour:
   - {fileID: 4420941297764097209}
   - {fileID: 2220500101171444813}
   - {fileID: 7345103534713574731}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5890637609271813976
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,6 +3312,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 6375125436765335940}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &5892122526530659263
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,6 +3359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &6261020512745160229
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,6 +3409,7 @@ MonoBehaviour:
   - {fileID: 6320223948687923859}
   - {fileID: 7679894465779135612}
   - {fileID: 8344894610666996742}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &6320223948687923859
 GameObject:
   m_ObjectHideFlags: 0
@@ -3390,6 +3457,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 1167216427973529882}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &6375125436765335940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,6 +3507,7 @@ MonoBehaviour:
   - {fileID: 8480236368663523869}
   - {fileID: 6950148301740585314}
   - {fileID: 5440991661536592019}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &6383278859335619868
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3555,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 8281315108515104791}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &6950148301740585314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3535,6 +3605,7 @@ MonoBehaviour:
   - {fileID: 202092081767029627}
   - {fileID: 8344894610666996742}
   - {fileID: 5640379511102702749}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7345103534713574731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,6 +3652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7478525875727788497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,6 +3699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7505412022565773337
 GameObject:
   m_ObjectHideFlags: 0
@@ -3673,6 +3746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7564446497277721164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,6 +3794,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 1964682647197172276}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7679894465779135612
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3844,7 @@ MonoBehaviour:
   - {fileID: 5892122526530659263}
   - {fileID: 8614684840033007745}
   - {fileID: 1167216427973529882}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &7908051782295018383
 GameObject:
   m_ObjectHideFlags: 0
@@ -3816,6 +3892,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 6950148301740585314}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &8281315108515104791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3865,6 +3942,7 @@ MonoBehaviour:
   - {fileID: 356364292969861470}
   - {fileID: 5440991661536592019}
   - {fileID: 4159768364192666413}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &8344894610666996742
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +3992,7 @@ MonoBehaviour:
   - {fileID: 7478525875727788497}
   - {fileID: 1167216427973529882}
   - {fileID: 2220500101171444813}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &8454897571925801293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3961,6 +4040,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 8344894610666996742}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &8480236368663523869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4008,6 +4088,7 @@ MonoBehaviour:
   attackPoint: 0
   movePoints:
   - {fileID: 5640379511102702749}
+  capsuleMesh: {fileID: 0}
 --- !u!1 &8614684840033007745
 GameObject:
   m_ObjectHideFlags: 0
@@ -4054,3 +4135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: 1
   movePoints: []
+  capsuleMesh: {fileID: 0}
