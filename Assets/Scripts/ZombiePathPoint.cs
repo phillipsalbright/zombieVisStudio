@@ -87,4 +87,13 @@ public class ZombiePathPoint : MonoBehaviour
         DestroyImmediate(gameObject);
     }
 
+    public void GetDebugsToThisPoint(){
+        Transform thisParent = transform.parent;
+        foreach(ZombiePathPoint zpp in thisParent.GetComponentsInChildren<ZombiePathPoint>()){
+            if(zpp.GetPoints().Contains(gameObject)){
+                Debug.DrawLine(transform.position, zpp.transform.position + new Vector3(0,1,0), Color.magenta, 10f);
+            }
+        }
+    }
+
 }
