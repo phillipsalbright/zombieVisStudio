@@ -116,7 +116,7 @@ public class PowerUpManager : Singleton<PowerUpManager>
         {
             if (p.playerIndex == player)
             {
-                p.gameObject.GetComponentInChildren<AssaultRifle>().GainAmmo(ammo);
+                p.gameObject.GetComponentInChildren<AssaultRifle>(true).GainAmmo(ammo);
             }
         }
     }

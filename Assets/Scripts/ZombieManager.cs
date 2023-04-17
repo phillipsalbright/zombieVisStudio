@@ -14,7 +14,7 @@ public class ZombieManager : MonoBehaviour
     [SerializeField, Tooltip("the zombie path structure")]
     ZombiePathStructure pathStructure;
     [SerializeField, Tooltip("the zombie prefab")]
-    GameObject zombie;
+    GameObject[] zombies;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +41,8 @@ public class ZombieManager : MonoBehaviour
     void SpawnZombie(){
         Debug.Log("spawn zombie");
         GameObject spawnObject = spawnPoints[Random.Range(0,spawnPoints.Count)];
-
-        GameObject newZombie = Instantiate(zombie, spawnObject.transform.position, Quaternion.identity);
+        int zombieIndex = Random.Range(0, zombies.Length);
+        GameObject newZombie = Instantiate(zombies[zombieIndex], spawnObject.transform.position, Quaternion.identity);
         newZombie.GetComponent<Zombie>().SetDestination(spawnObject);
     }
 }
