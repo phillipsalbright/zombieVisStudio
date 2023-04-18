@@ -63,7 +63,7 @@ MonoBehaviour:
   bobSpeed: 2.5
   bobHeight: 0.25
   rotationSpeed: 45
-  healthRestore: 6
+  healthRestore: 8
 --- !u!1 &1554456703168569030
 GameObject:
   m_ObjectHideFlags: 0

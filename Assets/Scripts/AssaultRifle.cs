@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using UnityEngine.EventSystems;
 
 public class AssaultRifle : Weapon
 {
@@ -166,11 +167,23 @@ public class AssaultRifle : Weapon
             {
                 crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[playerNum * 2 % crosshairSprites.Length];
             }
+            if (objecthit.collider.gameObject.layer == 5)
+            {
+                EventSystem.current.SetSelectedGameObject(objecthit.collider.gameObject);
+            }
+            else if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
         }
         else
         {
             laserSight.SetPosition(1, new Vector3(0, 0, 7));
             crosshair.SetActive(false);
+            if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
         }
     }
 
