@@ -1,0 +1,5 @@
+noise removal
+tremolo/phaser
+chorus -> vocals thickener
+amp to peak or slightly less
+low pass (5-7k Hz)

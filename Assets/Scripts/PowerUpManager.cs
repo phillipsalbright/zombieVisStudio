@@ -43,6 +43,10 @@ public class PowerUpManager : Singleton<PowerUpManager>
     //powerup spawn timer
     [SerializeField]
     private float powerUpSpawnTimer = 0f;
+
+    [SerializeField] private AudioSource powerupSounds;
+    [SerializeField] private AudioClip ammoPickupSound;
+    [SerializeField] private AudioClip healthPickupSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -102,15 +106,20 @@ public class PowerUpManager : Singleton<PowerUpManager>
         if(UnityEngine.Random.Range(0f,1f) < onKillChance){
             OnDeathPowerUpSpawn(obj.transform.position);
         }
+        Debug.Log(UnityEngine.Random.Range(0f, 1f));
         
     }
 
     public void Heal(int health){
+        powerupSounds.clip = healthPickupSound;
+        powerupSounds.Play();
         FindObjectOfType<PlayerHealthManager>().Heal(health);
     }
 
     public void RestoreAmmo(int ammo, int player)
     {
+        powerupSounds.clip = ammoPickupSound;
+        powerupSounds.Play();
         PlayerInput[] players = FindObjectsOfType<PlayerInput>();
         foreach (PlayerInput p in players)
         {

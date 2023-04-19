@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using UnityEngine.EventSystems;
 
 public class Pistol : Weapon
 {
@@ -52,6 +53,7 @@ public class Pistol : Weapon
         UpdateAmmoDisplay();
         playerNum = pm.playerIndex;
         laserSight.SetWidth(laserSight.startWidth * this.transform.root.lossyScale.x, laserSight.startWidth * this.transform.root.lossyScale.x);
+        Debug.Log(playerNum);
     }
 
     public override void AttackDown()
@@ -140,7 +142,6 @@ public class Pistol : Weapon
         RaycastHit objecthit;
         if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
         {
-            Debug.Log(objecthit.transform.gameObject.name);
             laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude/ this.transform.lossyScale.x, 7)));
             crosshair.transform.position = objecthit.point + (laserOrigin.position - objecthit.point).normalized * .05f;
             if ((objecthit.point - laserOrigin.position).magnitude <= 15)
@@ -160,11 +161,23 @@ public class Pistol : Weapon
             {
                 crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[playerNum*2 % crosshairSprites.Length];
             }
+            if (objecthit.collider.gameObject.layer == 5)
+            {
+                EventSystem.current.SetSelectedGameObject(objecthit.collider.gameObject);
+            } else if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+
         }
         else
         {
             laserSight.SetPosition(1, new Vector3(0, 0, 7));
             crosshair.SetActive(false);
+            if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
         }
     }
 
