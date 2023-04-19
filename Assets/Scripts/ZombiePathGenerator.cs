@@ -22,6 +22,11 @@ public class ZombiePathGenerator : MonoBehaviour
     [Header("Structure")]
     [SerializeField, Tooltip("actual zombie path structure to be generated")]
     private ZombiePathStructure zPath;
+    [Header("Safety: both of these must be marked true to be able to generate")]
+    [SerializeField]
+    private bool safety1 = false;
+    [SerializeField]
+    private bool safety2 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +40,17 @@ public class ZombiePathGenerator : MonoBehaviour
     }
 
     public void Generate(){
+        if(!(safety1 && safety2)){
+            return;
+        }
         if(zPath == null){
             zPath = gameObject.AddComponent<ZombiePathStructure>();
         }
         List<float> rings = GenerateRings();
         List<Vector3> paths = GeneratePaths();
         GeneratePoints(debugOn, rings, paths);
+        safety1 = false;
+        safety2 = false;
     }
 
     public List<float> GenerateRings(){
@@ -90,5 +100,9 @@ public class ZombiePathGenerator : MonoBehaviour
             }
         }
         zPath.SetPoints(points, debugRaysOn);
+    }
+
+    public void DebugLines(){
+        zPath.DebugLines();
     }
 }

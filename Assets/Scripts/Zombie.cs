@@ -10,6 +10,14 @@ public class Zombie : MonoBehaviour
         Aggressive,
         Circling
     }
+
+    public enum DamageType
+    {
+        Body = 0, 
+        Head = 1, 
+        LeftArm = 2, 
+        RightArm = 3
+    }
     [SerializeField, Tooltip("This zombie's destination. Should be set automatically")]
     GameObject dest;
     [SerializeField, Tooltip("this zombie's navmeshagent")]
@@ -34,6 +42,20 @@ public class Zombie : MonoBehaviour
     private float timeBetweenAttacks = 3.3f;
     private float timeSinceLastAttack = 2f;
     private bool dead = false;
+    [SerializeField] private float headHealth;
+    [SerializeField] private float leftArmHealth;
+    [SerializeField] private float rightArmHealth;
+    [SerializeField] private GameObject head;
+    [SerializeField] private GameObject leftArm;
+    [SerializeField] private GameObject rightArm;
+    [SerializeField] private AudioClip[] damageNoises;
+    [SerializeField] private AudioSource damageNoiseSource;
+    [SerializeField] private AudioClip[] deathNoises;
+    [SerializeField] private AudioSource deathNoiseSource;
+    [SerializeField] private AudioClip[] groans;
+    [SerializeField] private AudioSource groanSource;
+    private float groanTimer = 0;
+    private float timeToNextGroan = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +90,16 @@ public class Zombie : MonoBehaviour
                 StartCoroutine(Attack());
                 timeSinceLastAttack = 0;
             }
+        }
+
+        groanTimer += Time.fixedDeltaTime;
+        if (groanTimer >= timeToNextGroan)
+        {
+            groanTimer = 0;
+            groanSource.clip = groans[Random.Range(0, groans.Length)];
+            groanSource.Play();
+            timeToNextGroan = Random.Range(10, 20);
+
         }
     }
 
@@ -105,7 +137,7 @@ public class Zombie : MonoBehaviour
         dest = destination;
         navAgent.SetDestination(dest.transform.position);
         animator.SetBool("Walking", true);
-        Debug.LogWarning("new destination acquired");
+       // Debug.LogWarning("new destination acquired");
     }
 
     public void GetNextDest(){
@@ -127,23 +159,88 @@ public class Zombie : MonoBehaviour
             
         }
     }
-
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, int damageType)
     {
+        damageNoiseSource.clip = damageNoises[Random.Range(0, groans.Length)];
+        damageNoiseSource.Play();
         animator.SetTrigger("Hit");
         health -= damage;
         if (health <= 0)
         {
             StartCoroutine(Die());
         }
+        switch((DamageType)damageType) {
+            case DamageType.Body:
+                break;
+            case DamageType.Head:
+                if (head.activeInHierarchy) {
+                    headHealth -= damage;
+                    if (headHealth <= 0) {
+                        head.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
+                    }
+                }
+                break;
+            case DamageType.LeftArm:
+                if (leftArm.activeInHierarchy) {
+                    leftArmHealth -= damage;
+                    if (leftArmHealth <= 0) {
+                        leftArm.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
+                    }
+                }
+                break;
+            case DamageType.RightArm:
+                if (head.activeInHierarchy) {
+                    rightArmHealth -= damage;
+                    if (rightArmHealth <= 0) {
+                        rightArm.SetActive(false);
+                        Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+                        foreach (Hitbox h in hitboxes)
+                        {
+                            if (h.GetType() == damageType)
+                            {
+                                h.enabled = false;
+                            }
+                        }
+                    }
+                }
+                break;
+            default: break;
+        }
     }
 
     private IEnumerator Die()
     {
+        deathNoiseSource.clip = deathNoises[Random.Range(0, deathNoises.Length)];
+        deathNoiseSource.Play();
         animator.SetTrigger("Death");
         dead = true;
         StopMoving();
         this.enabled = false;
+        this.GetComponent<Collider>().enabled = false;
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders)
+        {
+            c.enabled = false;
+        }
+        FindObjectOfType<PlayerHealthManager>().ZombieKilled();
+        yield return new WaitForSeconds(1f);
+        PowerUpManager.Instance.OnDeathPowerUpSpawn(this.gameObject);
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }

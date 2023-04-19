@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.VFX;
+using UnityEngine.EventSystems;
 
 public class AssaultRifle : Weapon
 {
@@ -31,6 +33,15 @@ public class AssaultRifle : Weapon
     private Animator anim;
     private bool firing = false;
     private bool reloading = false;
+    [SerializeField] private TMP_Text ammoText;
+    [SerializeField] private Image healthImage;
+    private PlayerHealthManager phm;
+    [SerializeField] private LineRenderer laserSight;
+    [SerializeField] private Transform laserOrigin;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private Sprite[] crosshairSprites;
+    [SerializeField] private VisualEffect blood;
+    private int playerNum;
 
     private void Start()
     {
@@ -38,6 +49,10 @@ public class AssaultRifle : Weapon
         reserveAmmo = startingReserve;
         pad = (Gamepad)pm.devices[0];
         anim = GetComponent<Animator>();
+        phm = FindObjectOfType<PlayerHealthManager>();
+        UpdateAmmoDisplay();
+        playerNum = pm.playerIndex;
+        laserSight.SetWidth(laserSight.startWidth * this.transform.root.lossyScale.x, laserSight.startWidth *this.transform.root.lossyScale.x);
     }
 
     public override void AttackDown()
@@ -77,16 +92,19 @@ public class AssaultRifle : Weapon
             reserveAmmo = 0;
         }
         reloading = false;
+        UpdateAmmoDisplay();
     }
 
     public override void PutAway()
     {
-
+        this.gameObject.SetActive(false);
+        reloading = false;
+        firing = false;
     }
 
     public override void MakeActive()
     {
-
+        this.gameObject.SetActive(true);
     }
 
     public override Transform GetModelTransform()
@@ -125,6 +143,48 @@ public class AssaultRifle : Weapon
         }
         recoilTransform.localRotation = Quaternion.Lerp(recoilTransform.localRotation, rotationforce, Time.deltaTime * 2);
         rotationforce = new Quaternion(Mathf.Min(0, rotationforce.x + Time.deltaTime), 0, 0, 1);
+        healthImage.fillAmount = (phm.GetHealth() / phm.GetMaxHealth());
+        //healthText.text = "Health: " + phm.GetHealth();
+        RaycastHit objecthit;
+        if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out objecthit, Mathf.Infinity, validLayers))
+        {
+            laserSight.SetPosition(1, new Vector3(0, 0, Mathf.Min((objecthit.point - laserOrigin.position).magnitude / this.transform.lossyScale.x, 7)));
+            crosshair.transform.position = objecthit.point + (laserOrigin.position - objecthit.point).normalized * .05f;
+            if ((objecthit.point - laserOrigin.position).magnitude <= 15)
+            {
+                crosshair.SetActive(true);
+
+            }
+            else
+            {
+                crosshair.SetActive(false);
+            }
+            if (firing)
+            {
+                crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[(playerNum * 2 + 1) % crosshairSprites.Length];
+            }
+            else
+            {
+                crosshair.GetComponentInChildren<Image>().sprite = crosshairSprites[playerNum * 2 % crosshairSprites.Length];
+            }
+            if (objecthit.collider.gameObject.layer == 5)
+            {
+                EventSystem.current.SetSelectedGameObject(objecthit.collider.gameObject);
+            }
+            else if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+        }
+        else
+        {
+            laserSight.SetPosition(1, new Vector3(0, 0, 7));
+            crosshair.SetActive(false);
+            if (playerNum == 0)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+        }
     }
 
     private IEnumerator Fire()
@@ -143,12 +203,23 @@ public class AssaultRifle : Weapon
             {
                 if (objecthit.collider.gameObject.layer == 6)
                 {
-                    objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5);
+                    if (objecthit.collider.gameObject.GetComponent<Hitbox>() != null) {
+                        objecthit.collider.gameObject.GetComponent<Hitbox>().DamageBodyPart(5);
+                    } else {
+                        objecthit.collider.gameObject.GetComponent<Zombie>().TakeDamage(5, 0);
+                    }
+                    VisualEffect bloodEffect = Instantiate(blood, objecthit.point, Quaternion.LookRotation((objecthit.point - barrelForward.position)), objecthit.transform);
+                    bloodEffect.Play();
+                }
+                else if (objecthit.collider.gameObject.layer == 7)
+                {
+                    objecthit.collider.gameObject.GetComponent<PowerUp>().Activate(playerNum);
                 }
 
             }
             rotationforce *= new Quaternion(-.12f, 0, 0, 1);
             ammoInWeapon--;
+            UpdateAmmoDisplay();
             yield return new WaitForSeconds(.05f);
         }
         if (pad != null)
@@ -158,5 +229,15 @@ public class AssaultRifle : Weapon
         }
         firing = false;
 
+    }
+
+    private void UpdateAmmoDisplay()
+    {
+        ammoText.text = ": " + ammoInWeapon + "/" + reserveAmmo;
+    }
+
+    public void GainAmmo(int ammo)
+    {
+        reserveAmmo += ammo;
     }
 }

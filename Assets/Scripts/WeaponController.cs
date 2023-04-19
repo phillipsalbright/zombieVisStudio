@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -35,7 +36,7 @@ sealed class WeaponController : MonoBehaviour
         // Coefficient converting a gyro data value into a degree
         // Note: The actual constant is undocumented and unknown.
         //       I just put a plasible value by guessing.
-        const double GyroToAngle = 16 * 360 / System.Math.PI;
+        const double GyroToAngle = 17.5f * 360 / System.Math.PI;
 
         // Delta time from the last event
         var dt = ctx.time - ctx.control.device.lastUpdateTime;
@@ -56,9 +57,10 @@ sealed class WeaponController : MonoBehaviour
     private Quaternion controllerRotation;
     [SerializeField] private Weapon[] weapons;
     private Weapon currentWeapon;
+    private int currentWeaponIndex;
     private Vector2 stickMovement = Vector2.zero;
     private int schemenum = 0;
-    private Quaternion totalControllerRotation = Quaternion.identity;
+    private Quaternion totalStickRotation = Quaternion.identity;
 
     // Accumulation of gyro input
     Quaternion _accGyro = Quaternion.identity;
@@ -69,7 +71,19 @@ sealed class WeaponController : MonoBehaviour
     private void Awake()
     {
 
-        currentWeapon = weapons[0];
+        currentWeaponIndex = 0;
+        currentWeapon = weapons[currentWeaponIndex];
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (i == currentWeaponIndex)
+            {
+                weapons[i].MakeActive();
+            }
+            else
+            {
+                weapons[i].PutAway();
+            }
+        }
     }
 
     void Start()
@@ -105,42 +119,27 @@ sealed class WeaponController : MonoBehaviour
 
     void Update()
     {
-        Vector3 rotate = _accGyro.eulerAngles;
-        //Debug.LogError(_accGyro);
-        // Current status
-        var rot = controllerRotation; // use transform.localRotation to not preserve controller rotation past bounds
-
         // Rotation from gyroscope
         if (schemenum == 0) //ps4 with bluetooth
         {
             _accGyro.x = _accGyro.y; // this is good
             _accGyro.y = -_accGyro.z; //This is good
-            _accGyro.z = 0; // 
+            _accGyro.z = _accGyro.x; // 
         } else if (schemenum == 1)
         {
 
         }
-       
-        rot *= _accGyro;
+
+        Quaternion yQuatController = Quaternion.AngleAxis(_accGyro.eulerAngles.y, Vector3.up);
+        Quaternion xQuatController = Quaternion.AngleAxis(_accGyro.eulerAngles.x, Vector3.right);
+        controllerRotation = yQuatController * controllerRotation * xQuatController ; // use transform.localRotation to not preserve controller rotation past bounds
         _accGyro = Quaternion.identity;
-
-        // Accelerometer input
-        /** not using this
-        var accel = playerInput.devices[0]?.GetChildControl<Vector3Control>("accel");
-        var gravity = accel?.ReadValue() ?? -Vector3.up;
-
-        // Drift compensation using gravitational acceleration
-        var comp = Quaternion.FromToRotation(rot * gravity, -Vector3.up);
-
-        // Compensation reduction
-        comp.w *= 0.1f / Time.deltaTime;
-        comp = comp.normalized;
-        */
-        // Update
-        Quaternion controllerQuat = new Quaternion(stickMovement.y / -110, stickMovement.x / 160, 0, 1);
-        totalControllerRotation *= controllerQuat;
-        controllerRotation = rot;
-        transform.localRotation = rot * totalControllerRotation;
+        Quaternion yQuatStick = Quaternion.AngleAxis(stickMovement.x * Time.deltaTime * 100, Vector3.up);
+        Quaternion xQuatStick = Quaternion.AngleAxis(stickMovement.y * Time.deltaTime * -100, Vector3.right);
+        totalStickRotation = yQuatStick * totalStickRotation * xQuatStick;
+        Quaternion xQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.y + totalStickRotation.eulerAngles.y, Vector3.up);
+        Quaternion yQuatTotal = Quaternion.AngleAxis(controllerRotation.eulerAngles.x + totalStickRotation.eulerAngles.x, Vector3.right);
+        transform.localRotation = xQuatTotal * Quaternion.identity * yQuatTotal ; //Quaternion.Euler(stickRotVec3 + newRotation);
         if (transform.localEulerAngles.x < maxAngle && transform.localEulerAngles.x > minAngle)
         {
             if (Mathf.Abs(transform.localEulerAngles.x - maxAngle) < Mathf.Abs(transform.localEulerAngles.x - minAngle)) 
@@ -175,13 +174,42 @@ sealed class WeaponController : MonoBehaviour
         {
             //transform.localRotation = Quaternion.identity; use this to not preserve controller rotation past boundaries
             controllerRotation = Quaternion.identity;
-            totalControllerRotation = Quaternion.identity;
+            totalStickRotation = Quaternion.identity;
         }
     }
 
     public void SwapWeapon(InputAction.CallbackContext ctx)
     {
+        if (ctx.performed)
+        {
+            Debug.Log(ctx.ReadValue<float>());
+            if (ctx.ReadValue<float>() < 0)
+            {
+                currentWeaponIndex = math.abs((currentWeaponIndex - 1) % 2);
+            }
+            else if (ctx.ReadValue<float>() > 0)
+            {
+                currentWeaponIndex = (currentWeaponIndex + 1) % 2;
+            }
 
+            if (ctx.ReadValue<float>() != 0)
+            {
+                for (int i = 0; i < weapons.Length; i++)
+                {
+                    if (i == currentWeaponIndex)
+                    {
+                        weapons[i].MakeActive();
+                        currentWeapon = weapons[i];
+                    }
+                    else
+                    {
+                        weapons[i].PutAway();
+                    }
+                }
+            }
+
+        }
+ 
     }
 
     public void FireWeapon(InputAction.CallbackContext ctx)

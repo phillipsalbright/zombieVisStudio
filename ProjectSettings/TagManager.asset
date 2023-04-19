@@ -18,10 +18,10 @@ TagManager:
   - Player
   - Water
   - UI
-  - Zombie
-  - 
-  - 
-  - 
+  - HItbox
+  - Powerup
+  - PathPoint
+  - ZombieAI
   - 
   - 
   - 

@@ -8,10 +8,15 @@ public class ZombiePathPoint : MonoBehaviour
     private bool attackPoint = false;
     [SerializeField, Tooltip("All of the possible ZombiePathPoints that the zombies can go to after this one. Should stay empty for innermost ring")]
     private List<GameObject> movePoints = new List<GameObject>();
+    [SerializeField, Tooltip("the object mesh to be disabled on startup")]
+    private GameObject capsuleMesh;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(capsuleMesh != null){
+                capsuleMesh.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -76,6 +81,19 @@ public class ZombiePathPoint : MonoBehaviour
         }
         int rand = Random.Range(1,movePoints.Count);
         return movePoints[rand];
+    }
+
+    public void DestroyThis(){
+        DestroyImmediate(gameObject);
+    }
+
+    public void GetDebugsToThisPoint(){
+        Transform thisParent = transform.parent;
+        foreach(ZombiePathPoint zpp in thisParent.GetComponentsInChildren<ZombiePathPoint>()){
+            if(zpp.GetPoints().Contains(gameObject)){
+                Debug.DrawLine(transform.position, zpp.transform.position + new Vector3(0,1,0), Color.magenta, 10f);
+            }
+        }
     }
 
 }
