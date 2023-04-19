@@ -98,7 +98,7 @@ public class Zombie : MonoBehaviour
             groanTimer = 0;
             groanSource.clip = groans[Random.Range(0, groans.Length)];
             groanSource.Play();
-            timeToNextGroan = Random.Range(5, 15);
+            timeToNextGroan = Random.Range(10, 20);
 
         }
     }
@@ -240,7 +240,7 @@ public class Zombie : MonoBehaviour
         }
         FindObjectOfType<PlayerHealthManager>().ZombieKilled();
         yield return new WaitForSeconds(1f);
-        PowerUpManager.Instance.OnDeathPowerUpSpawn(transform.position);
+        PowerUpManager.Instance.OnDeathPowerUpSpawn(this.gameObject);
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }

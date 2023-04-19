@@ -14,6 +14,7 @@ public class PlayerHealthManager : MonoBehaviour
     private Animator anim;
     private bool dead = false;
     private int zombiesKilled;
+    [SerializeField] private AudioSource gameOverSound;
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +68,8 @@ public class PlayerHealthManager : MonoBehaviour
         {
             texts[i].text = "Zombies killed: " + zombiesKilled;
         }
+        yield return new WaitForSeconds(1f);
+        gameOverSound.Play();
         yield return new WaitForSeconds(10f);
 
         SceneManager.LoadScene(0);
