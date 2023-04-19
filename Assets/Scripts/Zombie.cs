@@ -48,6 +48,14 @@ public class Zombie : MonoBehaviour
     [SerializeField] private GameObject head;
     [SerializeField] private GameObject leftArm;
     [SerializeField] private GameObject rightArm;
+    [SerializeField] private AudioClip[] damageNoises;
+    [SerializeField] private AudioSource damageNoiseSource;
+    [SerializeField] private AudioClip[] deathNoises;
+    [SerializeField] private AudioSource deathNoiseSource;
+    [SerializeField] private AudioClip[] groans;
+    [SerializeField] private AudioSource groanSource;
+    private float groanTimer = 0;
+    private float timeToNextGroan = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +90,16 @@ public class Zombie : MonoBehaviour
                 StartCoroutine(Attack());
                 timeSinceLastAttack = 0;
             }
+        }
+
+        groanTimer += Time.fixedDeltaTime;
+        if (groanTimer >= timeToNextGroan)
+        {
+            groanTimer = 0;
+            groanSource.clip = groans[Random.Range(0, groans.Length)];
+            groanSource.Play();
+            timeToNextGroan = Random.Range(5, 15);
+
         }
     }
 
@@ -143,6 +161,8 @@ public class Zombie : MonoBehaviour
     }
     public void TakeDamage(float damage, int damageType)
     {
+        damageNoiseSource.clip = damageNoises[Random.Range(0, groans.Length)];
+        damageNoiseSource.Play();
         animator.SetTrigger("Hit");
         health -= damage;
         if (health <= 0)
@@ -206,6 +226,8 @@ public class Zombie : MonoBehaviour
 
     private IEnumerator Die()
     {
+        deathNoiseSource.clip = deathNoises[Random.Range(0, deathNoises.Length)];
+        deathNoiseSource.Play();
         animator.SetTrigger("Death");
         dead = true;
         StopMoving();
