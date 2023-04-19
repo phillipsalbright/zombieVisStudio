@@ -1,6 +1,14 @@
 # zombieVisStudio
 A simple survival zombie shooter for the Visualization Gallery at NC State University. Made for the Video Game Development Club @ NC State Spring game jam 2023.
 
+Credits:  
+Phillips Albright - Player Controller and general programming, Production
+Jack Grace - Zombie AI and pathfinding programming and tool creation
+Marianna - 2D and UI art
+Nyela Allen - 2D and UI art, VFX
+Camden - Audio
+Haley - Programming assist
+
 
 
 References to sourced assets:
